@@ -1,20 +1,29 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { AuthProvider } from './src/context/AuthContext';
+import { ErrorProvider } from './src/context/ErrorContext';
+import { PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { lightTheme } from './src/theme';
+import { ErrorBoundary } from './src/components/ErrorBoundary';
+import { AppNavigator } from './src/navigation/AppNavigator';
 
-export default function App() {
+
+const App: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ErrorBoundary>
+      <SafeAreaProvider>
+        <PaperProvider theme={lightTheme}>
+          <AuthProvider>
+            <ErrorProvider>
+              <AppNavigator />
+              <StatusBar style="auto" />
+            </ErrorProvider>
+          </AuthProvider>
+        </PaperProvider>
+      </SafeAreaProvider>
+    </ErrorBoundary>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
