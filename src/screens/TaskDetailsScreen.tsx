@@ -1,12 +1,189 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, ScrollView, Platform, KeyboardAvoidingView } from 'react-native';
+import { TextInput, Text, Button, Surface } from 'react-native-paper';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { useFormValidation, validateRequired } from '../hooks/useFormValidation';
+import { useAuth } from '../context/AuthContext';
+import { Task } from '../types';
+import { useTasks } from '../hooks/useTasks';
+import { TaskService } from '../services/taskService';
 
 export const TaskDetailsScreen: React.FC = () => {
- return (
-    <View style={styles.container}>
-      <Text>Tasks Details Screen</Text>
-    </View>
+  const route = useRoute();
+  const navigation = useNavigation();
+  const { user } = useAuth();
+  const { createTask, updateTask, deleteTask, refreshTasks } = useTasks(user?.id || '');
+  interface TaskDetailsParams {
+    taskId?: string;
+  }
+  const { taskId } = (route.params as TaskDetailsParams) || {};
+
+  const [task, setTask] = useState<Task | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(!taskId);
+
+  const validate = useCallback((values: { title: string; description: string }) => {
+    const errors: Record<string, string> = {};
+    const titleError = validateRequired(values.title, 'title');
+    if (titleError) errors.title = titleError;
+    const descriptionError = validateRequired(values.description, 'description');
+    if (descriptionError) errors.description = descriptionError;
+    return errors;
+  }, []);
+
+  const { values, errors, touched, handleChange, handleBlur, validateForm, setValues } =
+    useFormValidation({ title: '', description: '' }, validate);
+
+  useEffect(() => {
+    const loadTask = async () => {
+      if (taskId) {
+        setLoading(true);
+        const loadedTask = await TaskService.getTaskById(taskId);
+        if (loadedTask) {
+          setTask(loadedTask);
+          setValues({ title: loadedTask.title, description: loadedTask.description });
+        }
+        setLoading(false);
+      } else {
+        setIsEditing(true);
+        setLoading(false);
+      }
+    };
+    loadTask();
+  }, [taskId, setValues]);
+
+  const handleSave = useCallback(async () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    if (taskId) {
+      await updateTask(taskId, {
+        title: values.title,
+        description: values.description,
+      });
+    } else {
+      await createTask({
+        title: values.title,
+        description: values.description,
+        completed: false,
+      });
+    }
+    await refreshTasks();
+    navigation.goBack();
+  }, [taskId, values, validateForm, updateTask, createTask, refreshTasks, navigation]);
+
+  const handleDelete = useCallback(async () => {
+    if (taskId) {
+      await deleteTask(taskId);
+      await refreshTasks();
+      navigation.goBack();
+    }
+  }, [taskId, deleteTask, refreshTasks, navigation]);
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text>{'loading'}</Text>
+      </View>
+    );
+  }
+
+  return (
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Surface style={styles.surface}>
+          <Text variant="headlineSmall" style={styles.title}>
+            {taskId ? 'Edit Task' : 'Add Task'}
+          </Text>
+
+          <TextInput
+            label={'Task Title'}
+            value={values.title}
+            onChangeText={(text) => handleChange('title', text)}
+            onBlur={() => handleBlur('title')}
+            error={!!(touched.title && errors.title)}
+            editable={isEditing}
+            accessibilityLabel={'Task Title'}
+            style={styles.input}
+          />
+          {touched.title && errors.title && (
+            <Text style={styles.errorText}>{errors.title}</Text>
+          )}
+
+          <TextInput
+            label={'Task Description'}
+            value={values.description}
+            onChangeText={(text) => handleChange('description', text)}
+            onBlur={() => handleBlur('description')}
+            error={!!(touched.description && errors.description)}
+            multiline
+            numberOfLines={4}
+            editable={isEditing}
+            accessibilityLabel={'Task Description'}
+            style={styles.input}
+          />
+          {touched.description && errors.description && (
+            <Text style={styles.errorText}>{errors.description}</Text>
+          )}
+
+          {task && !isEditing && (
+            <View style={styles.taskInfo}>
+              <Text variant="bodyMedium">
+                {'Completed'}: {task.completed ? 'Completed' : 'Incomplete'}
+              </Text>
+              <Text variant="bodySmall" style={styles.dateText}>
+                Created: {new Date(task.createdAt).toLocaleString()}
+              </Text>
+              <Text variant="bodySmall" style={styles.dateText}>
+                Updated: {new Date(task.updatedAt).toLocaleString()}
+              </Text>
+            </View>
+          )}
+
+          <View style={styles.actions}>
+            {isEditing ? (
+              <View>
+                <Button mode="contained" onPress={handleSave} style={styles.button}>
+                  {'Save'}
+                </Button>
+                <Button
+                  mode="outlined"
+                  onPress={() => {
+                    if (taskId) {
+                      setIsEditing(false);
+                    } else {
+                      navigation.goBack();
+                    }
+                  }}
+                  style={styles.button}
+                >
+                  {'Cancel'}
+                </Button>
+              </View>
+            ) : (
+              <Button mode="contained" onPress={() => setIsEditing(true)} style={styles.button}>
+                {'Edit'}
+              </Button>
+            )}
+
+            {taskId && (
+              <Button
+                mode="contained"
+                buttonColor="#b00020"
+                onPress={handleDelete}
+                style={styles.button}
+              >
+                {'Delete'}
+              </Button>
+            )}
+          </View>
+        </Surface>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -51,4 +228,3 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 });
-

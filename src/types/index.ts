@@ -34,13 +34,13 @@ export interface  PaginationParams {
     limit: number;
 }
 
-// export interface PaginatedResponse<T> {
-//     data: T[];
-//     total: number;
-//     page: number;
-//     limit: number;
-//     totalPages: number;
-// }
+export interface PaginatedResponse<T> {
+    data: T[];
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+}
 
 export type SortField = 'title' | 'createdAt' | 'updatedAt' | 'completed';
 export type SortOrder = 'asc' | 'desc';
