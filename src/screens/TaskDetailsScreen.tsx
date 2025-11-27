@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext';
 import { Task } from '../types';
 import { useTasks } from '../hooks/useTasks';
 import { TaskService } from '../services/taskService';
+import i18n from '../i18n';
 
 export const TaskDetailsScreen: React.FC = () => {
   const route = useRoute();
@@ -84,7 +85,7 @@ export const TaskDetailsScreen: React.FC = () => {
   if (loading) {
     return (
       <View style={styles.container}>
-        <Text>{'loading'}</Text>
+        <Text>{i18n.t('common.loading')}</Text>
       </View>
     );
   }
@@ -97,17 +98,17 @@ export const TaskDetailsScreen: React.FC = () => {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <Surface style={styles.surface}>
           <Text variant="headlineSmall" style={styles.title}>
-            {taskId ? 'Edit Task' : 'Add Task'}
+            {taskId ? i18n.t('tasks.editTask') : i18n.t('tasks.addTask')}
           </Text>
 
           <TextInput
-            label={'Task Title'}
+            label={i18n.t('tasks.taskTitle')}
             value={values.title}
             onChangeText={(text) => handleChange('title', text)}
             onBlur={() => handleBlur('title')}
             error={!!(touched.title && errors.title)}
             editable={isEditing}
-            accessibilityLabel={'Task Title'}
+            accessibilityLabel={i18n.t('tasks.taskTitle')}
             style={styles.input}
           />
           {touched.title && errors.title && (
@@ -115,7 +116,7 @@ export const TaskDetailsScreen: React.FC = () => {
           )}
 
           <TextInput
-            label={'Task Description'}
+            label={i18n.t('tasks.taskDescription')}
             value={values.description}
             onChangeText={(text) => handleChange('description', text)}
             onBlur={() => handleBlur('description')}
@@ -123,7 +124,7 @@ export const TaskDetailsScreen: React.FC = () => {
             multiline
             numberOfLines={4}
             editable={isEditing}
-            accessibilityLabel={'Task Description'}
+            accessibilityLabel={i18n.t('tasks.taskDescription')}
             style={styles.input}
           />
           {touched.description && errors.description && (
@@ -133,7 +134,7 @@ export const TaskDetailsScreen: React.FC = () => {
           {task && !isEditing && (
             <View style={styles.taskInfo}>
               <Text variant="bodyMedium">
-                {'Completed'}: {task.completed ? 'Completed' : 'Incomplete'}
+                {i18n.t('tasks.completed')}: {task.completed ? i18n.t('tasks.completed') : i18n.t('tasks.incomplete')}
               </Text>
               <Text variant="bodySmall" style={styles.dateText}>
                 Created: {new Date(task.createdAt).toLocaleString()}
@@ -148,7 +149,7 @@ export const TaskDetailsScreen: React.FC = () => {
             {isEditing ? (
               <View>
                 <Button mode="contained" onPress={handleSave} style={styles.button}>
-                  {'Save'}
+                  {i18n.t('tasks.save')}
                 </Button>
                 <Button
                   mode="outlined"
@@ -161,12 +162,12 @@ export const TaskDetailsScreen: React.FC = () => {
                   }}
                   style={styles.button}
                 >
-                  {'Cancel'}
+                  {i18n.t('tasks.cancel')}
                 </Button>
               </View>
             ) : (
               <Button mode="contained" onPress={() => setIsEditing(true)} style={styles.button}>
-                {'Edit'}
+                {i18n.t('tasks.editTask')}
               </Button>
             )}
 
@@ -177,7 +178,7 @@ export const TaskDetailsScreen: React.FC = () => {
                 onPress={handleDelete}
                 style={styles.button}
               >
-                {'Delete'}
+                {i18n.t('tasks.delete')}
               </Button>
             )}
           </View>

@@ -7,6 +7,7 @@ import { useTasks } from '../hooks/useTasks';
 import { Task } from '../types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Card } from '../components/Card';
+import i18n from '../i18n';
 
 type TasksListNavigationProp = NativeStackNavigationProp<{
   TaskDetails: { taskId: string | null };
@@ -70,7 +71,7 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
             onPress={() => handleToggleComplete(item.id)}
             accessibilityLabel={item.completed ? 'Mark as incomplete' : 'Mark as complete'}
           >
-            {item.completed ? 'Compleated' : 'Incomplete'}
+            {item.completed ? i18n.t('tasks.completed') : i18n.t('tasks.incomplete')}
           </Chip>
         </View>
         <Text variant="bodyMedium" numberOfLines={2} style={styles.taskDescription}>
@@ -99,7 +100,7 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
           </Button>
         </View>
         <Text style={styles.pageText}>
-          {'Page'} {pagination.page} {'of'} {paginatedData.totalPages}
+          {i18n.t('tasks.page')} {pagination.page} {i18n.t('tasks.of')} {paginatedData.totalPages}
         </Text>
         <View style={styles.paginationButton}>
           <Button
@@ -122,11 +123,11 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
   return (
     <View style={styles.container}>
       <Searchbar
-        placeholder={'Search tasks...'}
+        placeholder={i18n.t('tasks.search')}
         onChangeText={handleSearch}
         value={searchQuery}
         style={styles.searchbar}
-        accessibilityLabel={'Search tasks...'}
+        accessibilityLabel={i18n.t('tasks.search')}
       />
       <View style={styles.filters}>
         <View style={styles.filterChip}>
@@ -135,7 +136,7 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
             onDismiss={() => setSortMenuVisible(false)}
             anchor={
               <Chip onPress={() => setSortMenuVisible(true)}>
-                {'Sort'}
+                {i18n.t('tasks.sort')}
               </Chip>
             }
           >
@@ -175,7 +176,7 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
             onDismiss={() => setFilterMenuVisible(false)}
             anchor={
               <Chip onPress={() => setFilterMenuVisible(true)}>
-                {'Filter'}
+                {i18n.t('tasks.filter')}
               </Chip>
             }
           >
@@ -184,30 +185,30 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
               updateFilters({ completed: null });
               setFilterMenuVisible(false);
             }}
-            title={'All'}
+            title={i18n.t('tasks.all')}
           />
           <Menu.Item
             onPress={() => {
               updateFilters({ completed: true });
               setFilterMenuVisible(false);
             }}
-            title={'Completed'}
+            title={i18n.t('tasks.completed')}
           />
           <Menu.Item
             onPress={() => {
               updateFilters({ completed: false });
               setFilterMenuVisible(false);
             }}
-            title={'Incomplete'}
+            title={i18n.t('tasks.incomplete')}
           />
           </Menu>
         </View>
       </View>
 
       {loading ? (
-        <Text style={styles.loading}>{'Loading...'}</Text>
+        <Text style={styles.loading}>{i18n.t('common.loading')}</Text>
       ) : filteredTasks.length === 0 ? (
-        <Text style={styles.empty}>{'No tasks found'}</Text>
+        <Text style={styles.empty}>{i18n.t('tasks.noTasks')}</Text>
       ) : (
         <FlatList
           data={filteredTasks}
@@ -224,7 +225,7 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
         style={styles.fab}
         onPress={handleAddTask}
         icon="plus"
-        accessibilityLabel={'Add Task'}
+        accessibilityLabel={i18n.t('tasks.addTask')}
         accessibilityHint="Add a new task"
       />
     </View>

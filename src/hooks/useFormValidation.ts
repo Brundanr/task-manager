@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import i18n from '../i18n';
 
 export interface ValidationErrors {
   [key: string]: string;
@@ -70,19 +71,18 @@ export const useFormValidation = <T extends Record<string, string>>(
 // Validation helpers
 export const validateEmail = (email: string): string | undefined => {
   if (!email) {
-    return 'Email is required';
+    return i18n.t('validation.emailRequired');
   }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return 'Invalid email address';
+    return i18n.t('validation.emailInvalid');
   }
   return undefined;
 };
 
 export const validateRequired = (value: string, fieldName: string): string | undefined => {
   if (!value || value.trim() === '') {
-    return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+    return i18n.t(`validation.${fieldName}Required`, { defaultValue: i18n.t('common.required') });
   }
   return undefined;
 };
-

@@ -7,19 +7,21 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { lightTheme } from './src/theme';
 import { ErrorBoundary } from './src/components/ErrorBoundary';
 import { AppNavigator } from './src/navigation/AppNavigator';
-
+import { LocalizationProvider } from './src/localization/LocalizationProvider';
 
 const App: React.FC = () => {
   return (
     <ErrorBoundary>
       <SafeAreaProvider>
         <PaperProvider theme={lightTheme}>
-          <AuthProvider>
-            <ErrorProvider>
-              <AppNavigator />
-              <StatusBar style="auto" />
-            </ErrorProvider>
-          </AuthProvider>
+          <LocalizationProvider>
+            <AuthProvider>
+              <ErrorProvider>
+                <AppNavigator />
+                <StatusBar style="auto" />
+              </ErrorProvider>
+            </AuthProvider>
+          </LocalizationProvider>
         </PaperProvider>
       </SafeAreaProvider>
     </ErrorBoundary>

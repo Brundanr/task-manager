@@ -5,6 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ErrorService } from '../services/errorService';
 import { useAdminGuard } from '../navigation/guards';
 import { ErrorLog } from '../types';
+import i18n from '../i18n';
 
 export const ErrorLogsScreen: React.FC = () => {
   useAdminGuard(); // Protect this route for admin only
@@ -48,10 +49,10 @@ export const ErrorLogsScreen: React.FC = () => {
             </Chip>
           </View>
           <Text variant="bodySmall" style={styles.errorDetails}>
-            {'User ID'}: {item.userId}
+            {i18n.t('errors.userId')}: {item.userId}
           </Text>
           <Text variant="bodySmall" style={styles.errorDetails}>
-            {'Timestamp'}: {new Date(item.timestamp).toLocaleString()}
+            {i18n.t('errors.timestamp')}: {new Date(item.timestamp).toLocaleString()}
           </Text>
           {item.stack && (
             <Text variant="bodySmall" style={styles.stackTrace}>
@@ -67,7 +68,7 @@ export const ErrorLogsScreen: React.FC = () => {
   if (loading) {
     return (
       <View style={styles.container}>
-        <Text>{'Loading...'}</Text>
+        <Text>{i18n.t('common.loading')}</Text>
       </View>
     );
   }
@@ -76,7 +77,7 @@ export const ErrorLogsScreen: React.FC = () => {
     <View style={styles.container}>
       {errors.length === 0 ? (
         <View style={styles.empty}>
-          <Text variant="bodyLarge">{'No errors logged'}</Text>
+          <Text variant="bodyLarge">{i18n.t('errors.noErrors')}</Text>
         </View>
       ) : (
         <FlatList
