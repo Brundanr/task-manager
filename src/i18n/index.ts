@@ -33,7 +33,6 @@ const i18n = {
     const locale = currentLocale || i18n.defaultLocale;
     const translation = translations[locale];
     
-    // Support dot notation for nested keys (e.g., 'auth.signInButton')
     const text = getNestedValue(translation, key);
     
     if (text !== undefined && text !== null) {

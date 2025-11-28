@@ -115,11 +115,11 @@ export const SignInScreen: React.FC = () => {
 
           <View style={styles.button}>
             <Button
-              title={i18n.t('auth.signInButton')}
+              title={i18n.t('auth.signIn')}
               onPress={handleSubmit}
               loading={loading}
               disabled={loading}
-              accessibilityLabel={i18n.t('auth.signInButton')}
+              accessibilityLabel={i18n.t('auth.signIn')}
               accessibilityHint={'Sign in to your account'}
             />
           </View>

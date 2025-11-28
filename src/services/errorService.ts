@@ -29,8 +29,8 @@ export class ErrorService {
   }
 
   // Get all error logs (admin only)
-  static async getAllErrors(): Promise<ErrorLog[] | null> {
-    return StorageService.getItem<ErrorLog[]>(STORAGE_KEY) || [];
+  static async getAllErrors(): Promise<ErrorLog[]> {
+    return (await StorageService.getItem<ErrorLog[]>(STORAGE_KEY)) || [];
   }
 
   // Clear all error logs

@@ -28,6 +28,7 @@ export const Card: React.FC<CardProps> = ({
       accessibilityLabel={accessibilityLabel}
       accessibilityHint={accessibilityHint}
       accessibilityRole="button"
+      testID={accessibilityLabel ? accessibilityLabel : undefined}
     >
       <PaperCard.Content style={styles.content}>{children}</PaperCard.Content>
     </PaperCard>

@@ -4,7 +4,6 @@
     "signOut": "Sign Out",
     "email": "Email",
     "password": "Password",
-    "signInButton": "Sign In",
     "invalidCredentials": "Invalid email or password",
     "signInSuccess": "Signed in successfully"
   },

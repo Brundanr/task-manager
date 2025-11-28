@@ -4,7 +4,6 @@
     "signOut": "Cerrar Sesión",
     "email": "Correo Electrónico",
     "password": "Contraseña",
-    "signInButton": "Iniciar Sesión",
     "invalidCredentials": "Correo o contraseña inválidos",
     "signInSuccess": "Sesión iniciada correctamente"
   },
