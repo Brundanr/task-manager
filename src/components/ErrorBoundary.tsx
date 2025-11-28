@@ -1,5 +1,6 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
+import { useThemeMode } from '../context/ThemeContext';
 
 interface Props {
   children: ReactNode;
@@ -26,10 +27,11 @@ export class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
+      const { theme } = useThemeMode();
       return (
-        <View style={styles.container}>
-          <Text style={styles.title}>Something went wrong</Text>
-          <Text style={styles.message}>{this.state.error?.message}</Text>
+        <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
+          <Text style={[styles.title, {color: theme.colors.error}]}>Something went wrong</Text>
+          <Text style={[styles.message, {color: theme.colors.text}]}>{this.state.error?.message}</Text>
           <Button
             title="Reload App"
             onPress={() => {

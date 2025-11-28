@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
 import { Card as PaperCard } from 'react-native-paper';
+import { useThemeMode } from '../context/ThemeContext';
 
 interface CardProps {
   children: React.ReactNode;
@@ -17,8 +18,9 @@ export const Card: React.FC<CardProps> = ({
   accessibilityLabel,
   accessibilityHint,
 }) => {
+  const { theme } = useThemeMode();
   // Merge styles properly
-  const cardStyle = style ? { ...styles.card, ...style } : styles.card;
+  const cardStyle = style ? { ...styles.card, ...style, backgroundColor: theme.colors.surface } : { ...styles.card, backgroundColor: theme.colors.surface };
 
   return (
     <PaperCard

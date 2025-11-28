@@ -18,13 +18,13 @@ export class AuthService {
       id: '2',
       email: 'member@example.com',
       password: 'member123',
-      role: UserRole.MEMEBR,
+      role: UserRole.MEMBER,
       name: 'Member User',
     },
   ];
 
   // Sign in with email and password
-   
+
   static async signIn(
     email: string,
     password: string
@@ -60,13 +60,13 @@ export class AuthService {
   }
 
   // Sign out
-   
+
   static async signOut(): Promise<void> {
     await StorageService.removeItem(STORAGE_KEY);
   }
 
   // Get current user from storage
-   
+
   static async getCurrentUser(): Promise<User | null> {
     return StorageService.getItem<User>(STORAGE_KEY);
   }

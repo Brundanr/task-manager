@@ -8,6 +8,9 @@ import { Task } from '../types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Card } from '../components/Card';
 import i18n from '../i18n';
+import { ThemeToggleButton } from '../components/ThemeToggleButton';
+import { useThemeMode } from '../context/ThemeContext';
+import { typography } from '../theme';
 
 type TasksListNavigationProp = NativeStackNavigationProp<{
   TaskDetails: { taskId: string | null };
@@ -30,6 +33,8 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
   const [sortMenuVisible, setSortMenuVisible] = useState(false);
   const [filterMenuVisible, setFilterMenuVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState(filters.search);
+
+  const { theme } = useThemeMode();
 
   useFocusEffect(
     useCallback(() => {
@@ -63,7 +68,7 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
         accessibilityHint="Double tap to view task details"
       >
         <View style={styles.taskHeader}>
-          <Text variant="titleMedium" style={styles.taskTitle}>
+          <Text variant="titleMedium" style={[styles.taskTitle, { color: theme.colors.text }]}>
             {item.title}
           </Text>
           <Chip
@@ -74,15 +79,15 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
             {item.completed ? i18n.t('tasks.completed') : i18n.t('tasks.incomplete')}
           </Chip>
         </View>
-        <Text variant="bodyMedium" numberOfLines={2} style={styles.taskDescription}>
+        <Text variant="bodyMedium" numberOfLines={2} style={[styles.taskDescription, { color: theme.colors.onSurface }]}>
           {item.description}
         </Text>
-        <Text variant="bodySmall" style={styles.taskDate}>
+        <Text variant="bodySmall" style={[styles.taskDate, { color: theme.colors.onSurface }]}>
           {new Date(item.createdAt).toLocaleDateString()}
         </Text>
       </Card>
     ),
-    [handleTaskPress, handleToggleComplete]
+    [handleTaskPress, handleToggleComplete, theme]
   );
 
   const renderPagination = useMemo(() => {
@@ -99,7 +104,7 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
             &lt;
           </Button>
         </View>
-        <Text style={styles.pageText}>
+        <Text style={[styles.pageText, { color: theme.colors.text }]}>
           {i18n.t('tasks.page')} {pagination.page} {i18n.t('tasks.of')} {paginatedData.totalPages}
         </Text>
         <View style={styles.paginationButton}>
@@ -121,14 +126,17 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
   }, [updateFilters]);
 
   return (
-    <View style={styles.container}>
-      <Searchbar
-        placeholder={i18n.t('tasks.search')}
-        onChangeText={handleSearch}
-        value={searchQuery}
-        style={styles.searchbar}
-        accessibilityLabel={i18n.t('tasks.search')}
-      />
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 16 }}>
+        <Searchbar
+          placeholder={i18n.t('tasks.search')}
+          onChangeText={handleSearch}
+          value={searchQuery}
+          style={[styles.searchbar, { flex: 1 }]}
+          accessibilityLabel={i18n.t('tasks.search')}
+        />
+        <ThemeToggleButton />
+      </View>
       <View style={styles.filters}>
         <View style={styles.filterChip}>
           <Menu
@@ -205,10 +213,12 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
         </View>
       </View>
 
+      <Text style={[typography.h1, { color: theme.colors.text, margin: 16 }]}>Task Manager</Text>
+
       {loading ? (
-        <Text style={styles.loading}>{i18n.t('common.loading')}</Text>
+        <Text style={[styles.loading, { color: theme.colors.text }]}>{i18n.t('common.loading')}</Text>
       ) : filteredTasks.length === 0 ? (
-        <Text style={styles.empty}>{i18n.t('tasks.noTasks')}</Text>
+        <Text style={[styles.empty, { color: theme.colors.onSurface }]}>{i18n.t('tasks.noTasks')}</Text>
       ) : (
         <FlatList
           data={filteredTasks}
@@ -235,7 +245,6 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
   searchbar: {
     margin: 16,
@@ -261,10 +270,8 @@ const styles = StyleSheet.create({
   },
   taskDescription: {
     marginBottom: 8,
-    color: '#666',
   },
   taskDate: {
-    color: '#999',
   },
   fab: {
     position: 'absolute',
@@ -279,7 +286,6 @@ const styles = StyleSheet.create({
   empty: {
     textAlign: 'center',
     marginTop: 32,
-    color: '#666',
   },
   pagination: {
     flexDirection: 'row',

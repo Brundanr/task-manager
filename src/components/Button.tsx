@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, TouchableOpacity, TouchableNativeFeedback, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { useTheme } from 'react-native-paper';
+import { typography } from '../theme';
 
 interface ButtonProps {
   title: string;
@@ -54,7 +55,11 @@ export const Button: React.FC<ButtonProps> = ({
   // Build text style object
   const textStyle: {
     color?: string;
+    fontSize?: number;
+    fontWeight?: any;
+    lineHeight?: number;
   } = {
+    ...typography.body1,
     ...styles.text,
   };
   

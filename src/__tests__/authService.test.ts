@@ -15,7 +15,7 @@ describe('AuthService', () => {
   const memberUser = {
     id: '2',
     email: 'member@example.com',
-    role: UserRole.MEMEBR,
+    role: UserRole.MEMBER,
     name: 'Member User',
   };
 

@@ -7,6 +7,7 @@ import { useErrorLogger } from '../context/ErrorContext';
 import { useFormValidation, validateEmail, validateRequired } from '../hooks/useFormValidation';
 import { useLocalization } from '../localization/LocalizationProvider';
 import i18n from '../i18n';
+import { ThemeToggleButton } from '../components/ThemeToggleButton';
 
 export const SignInScreen: React.FC = () => {
   const { signIn } = useAuth();
@@ -59,19 +60,23 @@ export const SignInScreen: React.FC = () => {
     >
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-      {/* Language Toggle Buttons */}
-          <View style={styles.languageToggle}>
-            <Button
-              title="English"
-              onPress={() => setLocale('en')}
-              disabled={locale === 'en'}
-            />
-            <Button
-              title="Español"
-              onPress={() => setLocale('es')}
-              disabled={locale === 'es'}
-            />
-          </View>
+        {/* Theme Toggle */}
+        <View style={styles.themeToggle}>
+          <ThemeToggleButton />
+        </View>
+        {/* Language Toggle Buttons */}
+        <View style={styles.languageToggle}>
+          <Button
+            title="English"
+            onPress={() => setLocale('en')}
+            disabled={locale === 'en'}
+          />
+          <Button
+            title="Español"
+            onPress={() => setLocale('es')}
+            disabled={locale === 'es'}
+          />
+        </View>
         <Surface style={styles.surface}>
           <Text variant="headlineMedium" style={styles.title}>
             {i18n.t('auth.signIn')}
@@ -137,6 +142,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     padding: 16,
+  },
+  themeToggle: { 
+    alignItems: 'flex-end',
+    marginRight: 8,
+    marginBottom: 0
   },
   languageToggle: { 
     flexDirection: 'row',

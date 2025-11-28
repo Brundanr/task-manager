@@ -6,11 +6,13 @@ import { ErrorService } from '../services/errorService';
 import { useAdminGuard } from '../navigation/guards';
 import { ErrorLog } from '../types';
 import i18n from '../i18n';
+import { useThemeMode } from '../context/ThemeContext';
 
 export const ErrorLogsScreen: React.FC = () => {
   useAdminGuard(); // Protect this route for admin only
   const [errors, setErrors] = useState<ErrorLog[]>([]);
   const [loading, setLoading] = useState(true);
+  const { theme } = useThemeMode();
 
   const loadErrors = useCallback(async () => {
     setLoading(true);
@@ -67,17 +69,17 @@ export const ErrorLogsScreen: React.FC = () => {
 
   if (loading) {
     return (
-      <View style={styles.container}>
-        <Text>{i18n.t('common.loading')}</Text>
+      <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
+        <Text style={{color: theme.colors.text}}>{i18n.t('common.loading')}</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
       {errors.length === 0 ? (
         <View style={styles.empty}>
-          <Text variant="bodyLarge">{i18n.t('errors.noErrors')}</Text>
+          <Text variant="bodyLarge" style={{color: theme.colors.text}}>{i18n.t('errors.noErrors')}</Text>
         </View>
       ) : (
         <FlatList

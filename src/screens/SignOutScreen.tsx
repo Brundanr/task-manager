@@ -6,10 +6,13 @@ import { useTasks } from '../hooks/useTasks';
 import { Task } from '../types';
 import { useFocusEffect } from '@react-navigation/native';
 import i18n from '../i18n';
+import { useThemeMode } from '../context/ThemeContext';
+import { ThemeToggleButton } from '../components/ThemeToggleButton';
 
 export const SignOutScreen = () => {
   const { signOut, user } = useAuth();
   const { tasks, refreshTasks } = useTasks(user?.id || '');
+  const { theme } = useThemeMode();
 
   useFocusEffect(
       useCallback(() => {
@@ -24,11 +27,12 @@ export const SignOutScreen = () => {
   };
 
   return (
-    <View>
-      <Text style={styles.text}>Hello {user?.name}</Text>
-      <Text style={styles.text}>Total Tasks Count: {tasks.length}</Text>
-      <Text style={styles.text}>Completed Count: {getTaskCounts(tasks).completed}</Text>
-      <Text style={styles.text}>Incompleted Count: {getTaskCounts(tasks).incomplete}</Text>
+    <View style={{backgroundColor: theme.colors.background, flex: 1}}>
+      <View style={{alignItems: 'flex-end', margin: 8}}><ThemeToggleButton /></View>
+      <Text style={[styles.text, {color: theme.colors.text}]}>Hello {user?.name}</Text>
+      <Text style={[styles.text, {color: theme.colors.text}]}>Total Tasks Count: {tasks.length}</Text>
+      <Text style={[styles.text, {color: theme.colors.text}]}>Completed Count: {getTaskCounts(tasks).completed}</Text>
+      <Text style={[styles.text, {color: theme.colors.text}]}>Incompleted Count: {getTaskCounts(tasks).incomplete}</Text>
       <View style={styles.button}>
         <Button
             title={i18n.t('auth.signOut')}
