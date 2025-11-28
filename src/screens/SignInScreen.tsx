@@ -39,15 +39,15 @@ export const SignInScreen: React.FC = () => {
       const result = await signIn(values.email, values.password);
       if (result.error) {
         setBackendError(result.error);
-        // Simulate backend error for specific email
-        if (values.email === 'error@example.com') {
-          await logError(result.error, 500, 'Sign in attempt failed');
-        }
+        // Log all sign-in errors (both authentication failures and server errors)
+        const errorStack = values.email === 'error@example.com' ? 'Sign in attempt failed' : undefined;
+        await logError(result.error, 500, errorStack);
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+      const errorStack = error instanceof Error ? error.stack : undefined;
       setBackendError(errorMessage);
-      await logError(errorMessage, 500);
+      await logError(errorMessage, 500, errorStack);
     } finally {
       setLoading(false);
     }

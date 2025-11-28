@@ -38,33 +38,33 @@ export const ErrorLogsScreen: React.FC = () => {
       <PaperCard style={styles.card}>
         <PaperCard.Content>
           <View style={styles.errorHeader}>
-            <Text variant="titleMedium" style={styles.errorMessage}>
+            <Text variant="titleMedium" style={[styles.errorMessage, { color: theme.colors.text }]}>
               {item.message}
             </Text>
             <Chip
               style={{
                 ...styles.statusChip,
-                ...(item.statusCode >= 500 ? { backgroundColor: '#ffebee' } : {}),
+                ...(item.statusCode >= 500 ? { backgroundColor: theme.colors.errorContainer || theme.colors.error + '20' } : {}),
               }}
             >
               {item.statusCode}
             </Chip>
           </View>
-          <Text variant="bodySmall" style={styles.errorDetails}>
+          <Text variant="bodySmall" style={[styles.errorDetails, { color: theme.colors.onSurface }]}>
             {i18n.t('errors.userId')}: {item.userId}
           </Text>
-          <Text variant="bodySmall" style={styles.errorDetails}>
+          <Text variant="bodySmall" style={[styles.errorDetails, { color: theme.colors.onSurface }]}>
             {i18n.t('errors.timestamp')}: {new Date(item.timestamp).toLocaleString()}
           </Text>
           {item.stack && (
-            <Text variant="bodySmall" style={styles.stackTrace}>
+            <Text variant="bodySmall" style={[styles.stackTrace, { color: theme.colors.onSurface }]}>
               {item.stack.substring(0, 200)}...
             </Text>
           )}
         </PaperCard.Content>
       </PaperCard>
     ),
-    []
+    [theme]
   );
 
   if (loading) {
@@ -97,7 +97,6 @@ export const ErrorLogsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
   list: {
     padding: 16,
@@ -121,13 +120,11 @@ const styles = StyleSheet.create({
   },
   errorDetails: {
     marginTop: 4,
-    color: '#666',
   },
   stackTrace: {
     marginTop: 8,
     fontFamily: 'monospace',
     fontSize: 10,
-    color: '#999',
   },
   empty: {
     flex: 1,

@@ -12,25 +12,46 @@ export class ErrorService {
     userId: string,
     stack?: string
   ): Promise<ErrorLog> {
-    const errorLog: ErrorLog = {
-      id: Date.now().toString(),
-      message,
-      statusCode,
-      userId,
-      timestamp: new Date().toISOString(),
-      stack,
-    };
+    try {
+      const errorLog: ErrorLog = {
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        message,
+        statusCode,
+        userId,
+        timestamp: new Date().toISOString(),
+        stack,
+      };
 
-    const logs = await StorageService.getItem<ErrorLog[]>(STORAGE_KEY) || [];
-    logs.push(errorLog);
-    await StorageService.setItem(STORAGE_KEY, logs);
+      const logs = await StorageService.getItem<ErrorLog[]>(STORAGE_KEY) || [];
+      logs.push(errorLog);
+      await StorageService.setItem(STORAGE_KEY, logs);
 
-    return errorLog;
+      console.log('Error logged successfully:', errorLog.id);
+      return errorLog;
+    } catch (error) {
+      console.error('Failed to log error:', error);
+      // Return a minimal error log even if storage fails
+      return {
+        id: Date.now().toString(),
+        message,
+        statusCode,
+        userId,
+        timestamp: new Date().toISOString(),
+        stack,
+      };
+    }
   }
 
   // Get all error logs (admin only)
   static async getAllErrors(): Promise<ErrorLog[]> {
-    return (await StorageService.getItem<ErrorLog[]>(STORAGE_KEY)) || [];
+    try {
+      const logs = await StorageService.getItem<ErrorLog[]>(STORAGE_KEY) || [];
+      console.log(`Retrieved ${logs.length} error logs from storage`);
+      return logs;
+    } catch (error) {
+      console.error('Failed to retrieve error logs:', error);
+      return [];
+    }
   }
 
   // Clear all error logs

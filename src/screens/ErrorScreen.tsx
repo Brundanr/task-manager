@@ -21,10 +21,12 @@ export const ErrorScreen: React.FC = () => {
   const { error, statusCode } = (route.params as ErrorScreenParams) || {};
 
   useEffect(() => {
-    if (error && statusCode >= 500 && user) {
+    // Log errors with statusCode >= 400 (client and server errors)
+    // Allow logging even when user is not authenticated
+    if (error && statusCode >= 400) {
       logError(error, statusCode);
     }
-  }, [error, statusCode, user, logError]);
+  }, [error, statusCode, logError]);
 
   const handleGoBack = () => {
     if (navigation.canGoBack()) {
