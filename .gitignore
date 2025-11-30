@@ -33,6 +33,9 @@ yarn-error.*
 # local env files
 .env*.local
 
+# Storybook config file (auto-generated)
+storybook-config.ts
+
 # typescript
 *.tsbuildinfo
 
