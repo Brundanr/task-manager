@@ -7,6 +7,9 @@
     "invalidCredentials": "Invalid email or password",
     "signInSuccess": "Signed in successfully"
   },
+  "greeting": {
+    "hello": "Hello {{name}}"
+  },
   "tasks": {
     "title": "Tasks",
     "addTask": "Add Task",
@@ -27,7 +30,10 @@
     "sort": "Sort",
     "all": "All",
     "page": "Page",
-    "of": "of"
+    "of": "of",
+    "totalCount": "Total Tasks: {{count}}",
+    "completedCount": "Completed: {{count}}",
+    "incompleteCount": "Incomplete: {{count}}"
   },
   "errors": {
     "title": "Errors",
@@ -52,5 +58,21 @@
     "emailRequired": "Email is required",
     "passwordRequired": "Password is required",
     "emailInvalid": "Please enter a valid email address"
+  },
+  "featureFlags": {
+    "title": "Feature Flags",
+    "subtitle": "Toggle features on/off. Changes are persisted automatically.",
+    "accessDenied": "Access Denied: Feature flags management is restricted to administrators only.",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "resetToDefaults": "Reset to Defaults",
+    "refreshFromRemote": "Refresh from Remote",
+    "labels": {
+      "theme": "Theme Toggle",
+      "language": "Language Selection",
+      "search": "Search Functionality",
+      "sort": "Sort Functionality",
+      "filter": "Filter Functionality"
+    }
   }
 }

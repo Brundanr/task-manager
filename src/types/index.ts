@@ -29,7 +29,7 @@ export interface ErrorLog {
     timestamp?: string;
 }
 
-export interface  PaginationParams {
+export interface PaginationParams {
     page: number;
     limit: number;
 }
@@ -50,4 +50,20 @@ export interface FilterState {
     completed: boolean | null;
     sortField: SortField;
     sortOrder: SortOrder;
+}
+
+export type FeatureFlagKey = 'theme' | 'language' | 'search' | 'sort' | 'filter';
+
+export interface FeatureFlags {
+    theme: boolean;
+    language: boolean;
+    search: boolean;
+    sort: boolean;
+    filter: boolean;
+}
+
+export interface FeatureFlagsConfig {
+    flags: FeatureFlags;
+    lastUpdated: string;
+    version: string;
 }

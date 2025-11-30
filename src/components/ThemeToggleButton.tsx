@@ -1,11 +1,18 @@
 import React from 'react';
 import { IconButton, useTheme } from 'react-native-paper';
 import { useThemeMode } from '../context/ThemeContext';
+import { useFeatureFlags } from '../context/FeatureFlagsContext';
 import { Text, View } from 'react-native';
 
 export const ThemeToggleButton: React.FC = () => {
   const { mode, toggleTheme } = useThemeMode();
+  const { isEnabled } = useFeatureFlags();
   const theme = useTheme() as any;
+  
+  // Hide button if theme feature is disabled
+  if (!isEnabled('theme')) {
+    return null;
+  }
   
   return (
     <View style={{flexDirection: 'column'}}>

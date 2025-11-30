@@ -11,6 +11,7 @@ import i18n from '../i18n';
 import { ThemeToggleButton } from '../components/ThemeToggleButton';
 import { useThemeMode } from '../context/ThemeContext';
 import { typography } from '../theme';
+import { useFeatureFlags } from '../context/FeatureFlagsContext';
 
 type TasksListNavigationProp = NativeStackNavigationProp<{
   TaskDetails: { taskId: string | null };
@@ -35,6 +36,7 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
   const [searchQuery, setSearchQuery] = useState(filters.search);
 
   const { theme } = useThemeMode();
+  const { isEnabled } = useFeatureFlags();
 
   useFocusEffect(
     useCallback(() => {
@@ -121,97 +123,112 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
   }, [paginatedData, pagination, changePage]);
 
   const handleSearch = useCallback((query: string) => {
+    if (!isEnabled('search')) return;
     setSearchQuery(query);
     updateFilters({ search: query });
-  }, [updateFilters]);
+  }, [updateFilters, isEnabled]);
+
+  const searchEnabled = isEnabled('search');
+  const sortEnabled = isEnabled('sort');
+  const filterEnabled = isEnabled('filter');
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 16 }}>
-        <Searchbar
-          placeholder={i18n.t('tasks.search')}
-          onChangeText={handleSearch}
-          value={searchQuery}
-          style={[styles.searchbar, { flex: 1 }]}
-          accessibilityLabel={i18n.t('tasks.search')}
-        />
+        {searchEnabled ? (
+          <Searchbar
+            placeholder={i18n.t('tasks.search')}
+            onChangeText={handleSearch}
+            value={searchQuery}
+            style={[styles.searchbar, { flex: 1 }]}
+            accessibilityLabel={i18n.t('tasks.search')}
+          />
+        ) : (
+          <View style={[styles.searchbar, { flex: 1 }]} />
+        )}
         <ThemeToggleButton />
       </View>
-      <View style={styles.filters}>
-        <View style={styles.filterChip}>
-          <Menu
-            visible={sortMenuVisible}
-            onDismiss={() => setSortMenuVisible(false)}
-            anchor={
-              <Chip onPress={() => setSortMenuVisible(true)}>
-                {i18n.t('tasks.sort')}
-              </Chip>
-            }
-          >
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ sortField: 'title', sortOrder: 'asc' });
-              setSortMenuVisible(false);
-            }}
-            title="Title A-Z"
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ sortField: 'title', sortOrder: 'desc' });
-              setSortMenuVisible(false);
-            }}
-            title="Title Z-A"
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ sortField: 'createdAt', sortOrder: 'desc' });
-              setSortMenuVisible(false);
-            }}
-            title="Newest First"
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ sortField: 'createdAt', sortOrder: 'asc' });
-              setSortMenuVisible(false);
-            }}
-            title="Oldest First"
-          />
-          </Menu>
+      {(sortEnabled || filterEnabled) && (
+        <View style={styles.filters}>
+          {sortEnabled && (
+            <View style={styles.filterChip}>
+              <Menu
+                visible={sortMenuVisible}
+                onDismiss={() => setSortMenuVisible(false)}
+                anchor={
+                  <Chip onPress={() => setSortMenuVisible(true)}>
+                    {i18n.t('tasks.sort')}
+                  </Chip>
+                }
+              >
+              <Menu.Item
+                onPress={() => {
+                  updateFilters({ sortField: 'title', sortOrder: 'asc' });
+                  setSortMenuVisible(false);
+                }}
+                title="Title A-Z"
+              />
+              <Menu.Item
+                onPress={() => {
+                  updateFilters({ sortField: 'title', sortOrder: 'desc' });
+                  setSortMenuVisible(false);
+                }}
+                title="Title Z-A"
+              />
+              <Menu.Item
+                onPress={() => {
+                  updateFilters({ sortField: 'createdAt', sortOrder: 'desc' });
+                  setSortMenuVisible(false);
+                }}
+                title="Newest First"
+              />
+              <Menu.Item
+                onPress={() => {
+                  updateFilters({ sortField: 'createdAt', sortOrder: 'asc' });
+                  setSortMenuVisible(false);
+                }}
+                title="Oldest First"
+              />
+              </Menu>
+            </View>
+          )}
+          {filterEnabled && (
+            <View style={styles.filterChip}>
+              <Menu
+                visible={filterMenuVisible}
+                onDismiss={() => setFilterMenuVisible(false)}
+                anchor={
+                  <Chip onPress={() => setFilterMenuVisible(true)}>
+                    {i18n.t('tasks.filter')}
+                  </Chip>
+                }
+              >
+              <Menu.Item
+                onPress={() => {
+                  updateFilters({ completed: null });
+                  setFilterMenuVisible(false);
+                }}
+                title={i18n.t('tasks.all')}
+              />
+              <Menu.Item
+                onPress={() => {
+                  updateFilters({ completed: true });
+                  setFilterMenuVisible(false);
+                }}
+                title={i18n.t('tasks.completed')}
+              />
+              <Menu.Item
+                onPress={() => {
+                  updateFilters({ completed: false });
+                  setFilterMenuVisible(false);
+                }}
+                title={i18n.t('tasks.incomplete')}
+              />
+              </Menu>
+            </View>
+          )}
         </View>
-        <View style={styles.filterChip}>
-          <Menu
-            visible={filterMenuVisible}
-            onDismiss={() => setFilterMenuVisible(false)}
-            anchor={
-              <Chip onPress={() => setFilterMenuVisible(true)}>
-                {i18n.t('tasks.filter')}
-              </Chip>
-            }
-          >
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ completed: null });
-              setFilterMenuVisible(false);
-            }}
-            title={i18n.t('tasks.all')}
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ completed: true });
-              setFilterMenuVisible(false);
-            }}
-            title={i18n.t('tasks.completed')}
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ completed: false });
-              setFilterMenuVisible(false);
-            }}
-            title={i18n.t('tasks.incomplete')}
-          />
-          </Menu>
-        </View>
-      </View>
+      )}
 
       <Text style={[typography.h1, { color: theme.colors.text, margin: 16 }]}>Task Manager</Text>
 
