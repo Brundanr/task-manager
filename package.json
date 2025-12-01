@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "node scripts/generate-storybook-flag.js && expo start",
+    "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "storybook": "cross-env STORYBOOK=1 node scripts/generate-storybook-flag.js && expo start",
-    "storybook:clear": "cross-env STORYBOOK=1 node scripts/generate-storybook-flag.js && expo start --clear",
+    "storybook": "cross-env EXPO_PUBLIC_STORYBOOK=true expo start",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -16,7 +15,8 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "storybook-generate": "sb-rn-get-stories"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.2.0",
@@ -33,10 +33,22 @@
     "react-native-paper": "^5.14.5",
     "react-native-safe-area-context": "~5.6.0",
     "react-native-screens": "~4.16.0",
-    "react-native-web": "^0.21.0"
+    "react-native-web": "^0.21.0",
+    "@babel/core": "^7.28.5",
+    "babel-loader": "^8.4.1",
+    "@react-native-community/datetimepicker": "^8.5.1",
+    "@react-native-community/slider": "^5.1.1",
+    "react-native-reanimated": "^4.1.5",
+    "react-native-gesture-handler": "^2.29.1",
+    "@gorhom/bottom-sheet": "^5.2.7",
+    "react-native-worklets": "0.5.1",
+    "react-native-svg": "^15.15.0",
+    "@storybook/addon-ondevice-controls": "^10.1.0",
+    "@storybook/addon-ondevice-actions": "^10.1.0",
+    "@storybook/react-native": "^10.1.0",
+    "storybook": "^10.1.2"
   },
   "devDependencies": {
-    "@storybook/react-native": "^6.5.1",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^13.3.3",
     "@types/i18n-js": "^3.8.9",
