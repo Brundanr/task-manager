@@ -1,4 +1,7 @@
 {
+  "app": {
+    "title": "Task Manager"
+  },
   "auth": {
     "signIn": "Sign In",
     "signOut": "Sign Out",
