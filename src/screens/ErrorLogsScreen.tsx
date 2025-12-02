@@ -7,6 +7,7 @@ import { useAdminGuard } from '../navigation/guards';
 import { ErrorLog } from '../types';
 import i18n from '../i18n';
 import { useThemeMode } from '../context/ThemeContext';
+import { Button } from '../components/Button';
 
 export const ErrorLogsScreen: React.FC = () => {
   useAdminGuard(); // Protect this route for admin only
@@ -18,7 +19,7 @@ export const ErrorLogsScreen: React.FC = () => {
     setLoading(true);
     try {
       const errorLogs = await ErrorService.getAllErrors();
-      setErrors(errorLogs? errorLogs.reverse(): []); // Show newest first
+      setErrors(errorLogs ? errorLogs.reverse() : []); // Show newest first
     } catch (error) {
       console.error('Error loading error logs:', error);
       setErrors([]);
@@ -44,20 +45,31 @@ export const ErrorLogsScreen: React.FC = () => {
             <Chip
               style={{
                 ...styles.statusChip,
-                ...(item.statusCode >= 500 ? { backgroundColor: theme.colors.errorContainer || theme.colors.error + '20' } : {}),
+                ...(item.statusCode >= 500
+                  ? { backgroundColor: theme.colors.errorContainer || theme.colors.error + '20' }
+                  : {}),
               }}
             >
               {item.statusCode}
             </Chip>
           </View>
-          <Text variant="bodySmall" style={[styles.errorDetails, { color: theme.colors.onSurface }]}>
+          <Text
+            variant="bodySmall"
+            style={[styles.errorDetails, { color: theme.colors.onSurface }]}
+          >
             {i18n.t('errors.userId')}: {item.userId}
           </Text>
-          <Text variant="bodySmall" style={[styles.errorDetails, { color: theme.colors.onSurface }]}>
+          <Text
+            variant="bodySmall"
+            style={[styles.errorDetails, { color: theme.colors.onSurface }]}
+          >
             {i18n.t('errors.timestamp')}: {new Date(item.timestamp).toLocaleString()}
           </Text>
           {item.stack && (
-            <Text variant="bodySmall" style={[styles.stackTrace, { color: theme.colors.onSurface }]}>
+            <Text
+              variant="bodySmall"
+              style={[styles.stackTrace, { color: theme.colors.onSurface }]}
+            >
               {item.stack.substring(0, 200)}...
             </Text>
           )}
@@ -69,23 +81,39 @@ export const ErrorLogsScreen: React.FC = () => {
 
   if (loading) {
     return (
-      <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
-        <Text style={{color: theme.colors.text}}>{i18n.t('common.loading')}</Text>
+      <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+        <Text style={{ color: theme.colors.text }}>{i18n.t('common.loading')}</Text>
       </View>
     );
   }
 
   return (
-    <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <View style={styles.header}>
+        {errors.length > 0 && (
+          <Button
+            title={i18n.t('errors.clearErrors')}
+            variant="outlined"
+            onPress={async () => {
+              await ErrorService.clearErrors();
+              setErrors([]);
+            }}
+            accessibilityLabel={i18n.t('errors.clearErrors')}
+          />
+        )}
+      </View>
+
       {errors.length === 0 ? (
         <View style={styles.empty}>
-          <Text variant="bodyLarge" style={{color: theme.colors.text}}>{i18n.t('errors.noErrors')}</Text>
+          <Text variant="bodyLarge" style={{ color: theme.colors.text }}>
+            {i18n.t('errors.noErrors')}
+          </Text>
         </View>
       ) : (
         <FlatList
           data={errors}
           renderItem={renderError}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           contentContainerStyle={styles.list}
           accessibilityLabel="Error logs list"
         />
@@ -95,40 +123,48 @@ export const ErrorLogsScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  card: {
+    elevation: 2,
+    marginBottom: 16,
+  },
   container: {
     flex: 1,
   },
-  list: {
-    padding: 16,
+  empty: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
   },
-  card: {
-    marginBottom: 16,
-    elevation: 2,
+  errorDetails: {
+    marginTop: 4,
   },
   errorHeader: {
+    alignItems: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
     marginBottom: 8,
   },
   errorMessage: {
     flex: 1,
     marginRight: 8,
   },
-  statusChip: {
-    alignSelf: 'flex-start',
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingBottom: 8,
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
-  errorDetails: {
-    marginTop: 4,
+  list: {
+    padding: 16,
   },
   stackTrace: {
-    marginTop: 8,
     fontFamily: 'monospace',
     fontSize: 10,
+    marginTop: 8,
   },
-  empty: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  statusChip: {
+    alignSelf: 'flex-start',
   },
 });

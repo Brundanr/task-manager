@@ -45,7 +45,8 @@
     "message": "Message",
     "statusCode": "Status Code",
     "timestamp": "Timestamp",
-    "userId": "User ID"
+    "userId": "User ID",
+    "clearErrors": "Clear Errors"
   },
   "common": {
     "loading": "Loading...",

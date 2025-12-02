@@ -22,11 +22,11 @@ export class ErrorService {
         stack,
       };
 
-      const logs = await StorageService.getItem<ErrorLog[]>(STORAGE_KEY) || [];
+      const logs = (await StorageService.getItem<ErrorLog[]>(STORAGE_KEY)) || [];
       logs.push(errorLog);
       await StorageService.setItem(STORAGE_KEY, logs);
 
-      console.log('Error logged successfully:', errorLog.id);
+      // console.log('Error logged successfully:', errorLog.id);
       return errorLog;
     } catch (error) {
       console.error('Failed to log error:', error);
@@ -45,8 +45,8 @@ export class ErrorService {
   // Get all error logs (admin only)
   static async getAllErrors(): Promise<ErrorLog[]> {
     try {
-      const logs = await StorageService.getItem<ErrorLog[]>(STORAGE_KEY) || [];
-      console.log(`Retrieved ${logs.length} error logs from storage`);
+      const logs = (await StorageService.getItem<ErrorLog[]>(STORAGE_KEY)) || [];
+      // console.log(`Retrieved ${logs.length} error logs from storage`);
       return logs;
     } catch (error) {
       console.error('Failed to retrieve error logs:', error);
@@ -59,4 +59,3 @@ export class ErrorService {
     await StorageService.removeItem(STORAGE_KEY);
   }
 }
-
