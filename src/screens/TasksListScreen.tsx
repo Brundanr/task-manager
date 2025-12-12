@@ -7,6 +7,7 @@ import { useTasks } from '../hooks/useTasks';
 import { Task } from '../types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Card } from '../components/Card';
+import { spacing, colors } from '../theme';
 
 type TasksListNavigationProp = NativeStackNavigationProp<{
   TaskDetails: { taskId: string | null };
@@ -234,16 +235,16 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.backgroundLight,
   },
   searchbar: {
-    margin: 16,
-    marginBottom: 8,
+    margin: spacing.md,
+    marginBottom: spacing.sm,
   },
   filters: {
     flexDirection: 'row',
-    padding: 16,
-    paddingTop: 8,
+    padding: spacing.md,
+    paddingTop: spacing.sm,
   },
   list: {
     paddingBottom: 80,
@@ -252,47 +253,47 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   taskTitle: {
     flex: 1,
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
   taskDescription: {
-    marginBottom: 8,
-    color: '#666',
+    marginBottom: spacing.sm,
+    color: colors.textSecondary,
   },
   taskDate: {
-    color: '#999',
+    color: colors.textTertiary,
   },
   fab: {
     position: 'absolute',
-    margin: 16,
+    margin: spacing.md,
     right: 0,
     bottom: 0,
   },
   loading: {
     textAlign: 'center',
-    marginTop: 32,
+    marginTop: spacing.xl,
   },
   empty: {
     textAlign: 'center',
-    marginTop: 32,
-    color: '#666',
+    marginTop: spacing.xl,
+    color: colors.textSecondary,
   },
   pagination: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
+    padding: spacing.md,
   },
   filterChip: {
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
   pageText: {
-    marginHorizontal: 16,
+    marginHorizontal: spacing.md,
   },
   paginationButton: {
-    marginHorizontal: 8,
+    marginHorizontal: spacing.sm,
   },
 });

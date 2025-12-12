@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
 import { Card as PaperCard } from 'react-native-paper';
+import { spacing, elevation } from '../theme';
 
 interface CardProps {
   children: React.ReactNode;
@@ -36,11 +37,11 @@ export const Card: React.FC<CardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    marginVertical: 8,
-    marginHorizontal: 16,
-    elevation: 2,
+    marginVertical: spacing.sm,
+    marginHorizontal: spacing.md,
+    elevation: elevation.low,
   },
   content: {
-    padding: 16,
+    padding: spacing.md,
   },
 });
