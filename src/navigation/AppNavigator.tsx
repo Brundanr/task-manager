@@ -5,12 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useAuth } from '../context/AuthContext';
 import { UserRole } from '../types';
 import { SignInScreen } from '../screens/SignInScreen';
-import ErrorsScreen from '../screens/ErrorsScreen';
+import { ErrorScreen } from '../screens/ErrorScreen';
 import { TabIcon } from '../components/TabIcon';
 import { LoadingScreen } from '../components/LoadingScreen';
 import { TasksListScreen } from '../screens/TasksListScreen';
 import { TaskDetailsScreen } from '../screens/TaskDetailsScreen';
 import { SignOutScreen } from '../screens/SignOutScreen';
+import { ErrorLogsScreen } from '../screens/ErrorLogsScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -49,7 +50,7 @@ const AuthenticatedTabs = () => {
       {user?.role === UserRole.ADMIN && (
         <Tab.Screen
           name="Errors"
-          component={ErrorsScreen}
+          component={ErrorLogsScreen}
         />
       )}
       <Tab.Screen
@@ -85,7 +86,7 @@ export const AppNavigator: React.FC = () => {
             <Stack.Screen name="Main" component={AuthenticatedTabs} />
             <Stack.Screen
               name="Error"
-              component={ErrorsScreen}
+              component={ErrorScreen}
               options={{ presentation: 'modal' }}
             />
           </>

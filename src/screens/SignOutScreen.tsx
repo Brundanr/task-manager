@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/Button';
+import { useTasks } from '../hooks/useTasks';
+import { Task } from '../types';
+import { useFocusEffect } from '@react-navigation/native';
+import { spacing } from '../theme';
 
 export const SignOutScreen = () => {
   const { signOut, user } = useAuth();
+  const { tasks, refreshTasks } = useTasks(user?.id || '');
+
+  useFocusEffect(
+      useCallback(() => {
+        refreshTasks();
+      }, [refreshTasks])
+    );
+
+  const getTaskCounts = (tasks: Task[]): { completed: number; incomplete: number } => {
+    const completed = tasks.filter(task => task.completed).length;
+    const incomplete = tasks.length - completed;
+    return { completed, incomplete };
+  };
 
   return (
     <View>
       <Text style={styles.text}>Hello {user?.name}</Text>
+      <Text style={styles.text}>Total Tasks Count: {tasks.length}</Text>
+      <Text style={styles.text}>Completed Count: {getTaskCounts(tasks).completed}</Text>
+      <Text style={styles.text}>Incompleted Count: {getTaskCounts(tasks).incomplete}</Text>
       <View style={styles.button}>
         <Button
             title={'Sign Out'}
@@ -16,7 +36,7 @@ export const SignOutScreen = () => {
             accessibilityLabel={'Sign out Button'}
             accessibilityHint="Sign out to your account"
         />
-        </View>
+      </View>
     </View>
   );
 };
@@ -24,9 +44,9 @@ export const SignOutScreen = () => {
 const styles = StyleSheet.create({
   text: {
     fontSize: 18,
-    margin: 16,
+    margin: spacing.md,
   },
   button: {
-    padding: 16
+    padding: spacing.md,
   },
 });

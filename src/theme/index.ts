@@ -71,3 +71,37 @@ export const typography = {
 
 export type Theme = typeof lightTheme;
 
+// Spacing constants
+export const spacing = {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+} as const;
+
+// Color constants
+export const colors = {
+    backgroundLight: '#f5f5f5',
+    errorBackground: '#ffebee',
+    textSecondary: '#666',
+    textTertiary: '#999',
+    error: '#b00020',
+    white: '#ffffff',
+} as const;
+
+// Elevation constants
+export const elevation = {
+    low: 2,
+    medium: 4,
+    high: 8,
+} as const;
+
+// Border radius constants
+export const borderRadius = {
+    sm: 4,
+    md: 8,
+    lg: 12,
+    xl: 16,
+} as const;
+
