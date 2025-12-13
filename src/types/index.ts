@@ -51,3 +51,12 @@ export interface FilterState {
     sortField: SortField;
     sortOrder: SortOrder;
 }
+
+export interface ErrorScreenParams {
+    error: string;
+    statusCode: number;
+}
+
+export interface TaskDetailsParams {
+    taskId?: string;
+}

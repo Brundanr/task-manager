@@ -4,7 +4,7 @@ import { TextInput, Text, Button, Surface } from 'react-native-paper';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useFormValidation, validateRequired } from '../hooks/useFormValidation';
 import { useAuth } from '../context/AuthContext';
-import { Task } from '../types';
+import { Task, TaskDetailsParams } from '../types';
 import { useTasks } from '../hooks/useTasks';
 import { TaskService } from '../services/taskService';
 import { spacing, colors, elevation, borderRadius } from '../theme';
@@ -14,9 +14,7 @@ export const TaskDetailsScreen: React.FC = () => {
   const navigation = useNavigation();
   const { user } = useAuth();
   const { createTask, updateTask, deleteTask, refreshTasks } = useTasks(user?.id || '');
-  interface TaskDetailsParams {
-    taskId?: string;
-  }
+
   const { taskId } = (route.params as TaskDetailsParams) || {};
 
   const [task, setTask] = useState<Task | null>(null);

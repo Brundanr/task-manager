@@ -5,16 +5,14 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useErrorLogger } from '../context/ErrorContext';
 import { useAuth } from '../context/AuthContext';
 import { spacing, colors, elevation, borderRadius } from '../theme';
+import { ErrorScreenParams } from '../types';
 
 export const ErrorScreen: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { logError } = useErrorLogger();
   const { user } = useAuth();
-  interface ErrorScreenParams {
-    error?: string;
-    statusCode?: number;
-  }
+
   const { error, statusCode } = (route.params as ErrorScreenParams) || {};
 
   useEffect(() => {
