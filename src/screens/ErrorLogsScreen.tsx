@@ -3,12 +3,10 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import { Text, Card as PaperCard, Chip } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 import { ErrorService } from '../services/errorService';
-import { useAdminGuard } from '../navigation/guards';
 import { ErrorLog } from '../types';
 import { spacing, colors, elevation } from '../theme';
 
 export const ErrorLogsScreen: React.FC = () => {
-  useAdminGuard(); // Protect this route for admin only
   const [errors, setErrors] = useState<ErrorLog[]>([]);
   const [loading, setLoading] = useState(true);
 
