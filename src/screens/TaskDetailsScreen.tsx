@@ -4,19 +4,18 @@ import { TextInput, Text, Button, Surface } from 'react-native-paper';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useFormValidation, validateRequired } from '../hooks/useFormValidation';
 import { useAuth } from '../context/AuthContext';
-import { Task } from '../types';
+import { Task, TaskDetailsParams } from '../types';
 import { useTasks } from '../hooks/useTasks';
 import { TaskService } from '../services/taskService';
 import i18n from '../i18n';
+import { spacing, colors, elevation, borderRadius } from '../theme';
 
 export const TaskDetailsScreen: React.FC = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const { user } = useAuth();
   const { createTask, updateTask, deleteTask, refreshTasks } = useTasks(user?.id || '');
-  interface TaskDetailsParams {
-    taskId?: string;
-  }
+
   const { taskId } = (route.params as TaskDetailsParams) || {};
 
   const [task, setTask] = useState<Task | null>(null);
@@ -174,7 +173,7 @@ export const TaskDetailsScreen: React.FC = () => {
             {taskId && (
               <Button
                 mode="contained"
-                buttonColor="#b00020"
+                buttonColor={colors.error}
                 onPress={handleDelete}
                 style={styles.button}
               >
@@ -193,39 +192,39 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    padding: 16,
+    padding: spacing.md,
   },
   surface: {
-    padding: 24,
-    borderRadius: 8,
-    elevation: 4,
+    padding: spacing.lg,
+    borderRadius: borderRadius.md,
+    elevation: elevation.medium,
   },
   title: {
-    marginBottom: 24,
+    marginBottom: spacing.lg,
   },
   input: {
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   errorText: {
-    color: '#b00020',
+    color: colors.error,
     fontSize: 12,
-    marginBottom: 8,
+    marginBottom: spacing.sm,
     marginLeft: 12,
   },
   taskInfo: {
-    marginTop: 16,
-    padding: 16,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 8,
+    marginTop: spacing.md,
+    padding: spacing.md,
+    backgroundColor: colors.backgroundLight,
+    borderRadius: borderRadius.md,
   },
   dateText: {
-    marginTop: 8,
-    color: '#666',
+    marginTop: spacing.sm,
+    color: colors.textSecondary,
   },
   actions: {
-    marginTop: 24,
+    marginTop: spacing.lg,
   },
   button: {
-    marginTop: 8,
+    marginTop: spacing.sm,
   },
 });
