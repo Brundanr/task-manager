@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { Text, FAB, Chip, Menu, Button, Searchbar } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { useTasks } from '../hooks/useTasks';
 import { Task } from '../types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Card } from '../components/Card';
+import { Pagination } from '../components/Pagination';
 import { spacing, colors } from '../theme';
 
 type TasksListNavigationProp = NativeStackNavigationProp<{
@@ -84,36 +85,6 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
     ),
     [handleTaskPress, handleToggleComplete]
   );
-
-  const renderPagination = useMemo(() => {
-    if (!paginatedData || paginatedData.totalPages <= 1) return null;
-
-    return (
-      <View style={styles.pagination}>
-        <View style={styles.paginationButton}>
-          <Button
-            mode="outlined"
-            onPress={() => changePage(Math.max(1, pagination.page - 1))}
-            disabled={pagination.page === 1}
-          >
-            &lt;
-          </Button>
-        </View>
-        <Text style={styles.pageText}>
-          {'Page'} {pagination.page} {'of'} {paginatedData.totalPages}
-        </Text>
-        <View style={styles.paginationButton}>
-          <Button
-            mode="outlined"
-            onPress={() => changePage(Math.min(paginatedData.totalPages, pagination.page + 1))}
-            disabled={pagination.page === paginatedData.totalPages}
-          >
-            &gt;
-          </Button>
-        </View>
-      </View>
-    );
-  }, [paginatedData, pagination, changePage]);
 
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
@@ -219,7 +190,11 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
         />
       )}
 
-      {renderPagination}
+      <Pagination
+        pagination={pagination}
+        paginatedData={paginatedData}
+        onPageChange={changePage}
+      />
 
       <FAB
         style={styles.fab}
@@ -281,19 +256,7 @@ const styles = StyleSheet.create({
     marginTop: spacing.xl,
     color: colors.textSecondary,
   },
-  pagination: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: spacing.md,
-  },
   filterChip: {
     marginRight: spacing.sm,
-  },
-  pageText: {
-    marginHorizontal: spacing.md,
-  },
-  paginationButton: {
-    marginHorizontal: spacing.sm,
   },
 });
