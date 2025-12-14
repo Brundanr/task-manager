@@ -5,16 +5,15 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useErrorLogger } from '../context/ErrorContext';
 import { useAuth } from '../context/AuthContext';
 import i18n from '../i18n';
+import { spacing, colors, elevation, borderRadius } from '../theme';
+import { ErrorScreenParams } from '../types';
 
 export const ErrorScreen: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { logError } = useErrorLogger();
   const { user } = useAuth();
-  interface ErrorScreenParams {
-    error?: string;
-    statusCode?: number;
-  }
+
   const { error, statusCode } = (route.params as ErrorScreenParams) || {};
 
   useEffect(() => {
@@ -63,32 +62,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#f5f5f5',
+    padding: spacing.md,
+    backgroundColor: colors.backgroundLight,
   },
   surface: {
-    padding: 24,
-    borderRadius: 8,
-    elevation: 4,
+    padding: spacing.lg,
+    borderRadius: borderRadius.md,
+    elevation: elevation.medium,
     width: '100%',
     maxWidth: 400,
   },
   title: {
-    marginBottom: 16,
+    marginBottom: spacing.md,
     textAlign: 'center',
-    color: '#b00020',
+    color: colors.error,
   },
   message: {
-    marginBottom: 8,
+    marginBottom: spacing.sm,
     textAlign: 'center',
   },
   statusCode: {
-    marginBottom: 24,
+    marginBottom: spacing.lg,
     textAlign: 'center',
-    color: '#666',
+    color: colors.textSecondary,
   },
   button: {
-    marginTop: 16,
+    marginTop: spacing.md,
   },
 });
 

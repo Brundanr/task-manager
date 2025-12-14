@@ -4,9 +4,11 @@ import { TextInput, Text, Surface } from 'react-native-paper';
 import { Button } from '../components/Button';
 import { useAuth } from '../context/AuthContext';
 import { useErrorLogger } from '../context/ErrorContext';
-import { useFormValidation, validateEmail, validateRequired } from '../hooks/useFormValidation';
+import { useFormValidation } from '../hooks/useFormValidation';
+import { validateEmail, validateRequired } from '../validators';
 import { useLocalization } from '../localization/LocalizationProvider';
 import i18n from '../i18n';
+import { spacing, colors, elevation, borderRadius } from '../theme';
 
 export const SignInScreen: React.FC = () => {
   const { signIn } = useAuth();
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: 16,
+    padding: spacing.md,
   },
   languageToggle: { 
     flexDirection: 'row',
@@ -144,36 +146,36 @@ const styles = StyleSheet.create({
     padding: 16 
   },
   surface: {
-    padding: 24,
-    borderRadius: 8,
-    elevation: 4,
+    padding: spacing.lg,
+    borderRadius: borderRadius.md,
+    elevation: elevation.medium,
   },
   title: {
-    marginBottom: 24,
+    marginBottom: spacing.lg,
     textAlign: 'center',
   },
   input: {
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   errorText: {
-    color: '#b00020',
+    color: colors.error,
     fontSize: 12,
-    marginBottom: 8,
+    marginBottom: spacing.sm,
     marginLeft: 12,
   },
   backendErrorText: {
-    color: '#b00020',
+    color: colors.error,
     fontSize: 14,
-    marginBottom: 16,
+    marginBottom: spacing.md,
     textAlign: 'center',
   },
   button: {
-    marginTop: 8,
+    marginTop: spacing.sm,
   },
   hintText: {
-    marginTop: 16,
+    marginTop: spacing.md,
     fontSize: 12,
     textAlign: 'center',
-    color: '#666',
+    color: colors.textSecondary,
   },
 });

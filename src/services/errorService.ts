@@ -1,7 +1,6 @@
 import { ErrorLog } from '../types';
 import { StorageService } from '../utills/storage';
-
-const STORAGE_KEY = 'error_logs';
+import { StorageItemsEnum } from '../constants/StorageItemsEnum';
 
 // Error logging service
 export class ErrorService {
@@ -21,21 +20,21 @@ export class ErrorService {
       stack,
     };
 
-    const logs = await StorageService.getItem<ErrorLog[]>(STORAGE_KEY) || [];
+    const logs = await StorageService.getItem<ErrorLog[]>(StorageItemsEnum.ERROR_LOGS) || [];
     logs.push(errorLog);
-    await StorageService.setItem(STORAGE_KEY, logs);
+    await StorageService.setItem(StorageItemsEnum.ERROR_LOGS, logs);
 
     return errorLog;
   }
 
   // Get all error logs (admin only)
-  static async getAllErrors(): Promise<ErrorLog[]> {
-    return (await StorageService.getItem<ErrorLog[]>(STORAGE_KEY)) || [];
+  static async getAllErrors(): Promise<ErrorLog[] | null> {
+    return StorageService.getItem<ErrorLog[]>(StorageItemsEnum.ERROR_LOGS) || [];
   }
 
   // Clear all error logs
   static async clearErrors(): Promise<void> {
-    await StorageService.removeItem(STORAGE_KEY);
+    await StorageService.removeItem(StorageItemsEnum.ERROR_LOGS);
   }
 }
 
