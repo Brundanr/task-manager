@@ -4,6 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useTasks } from '../hooks/useTasks';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useThemeMode } from '../context/ThemeContext';
+import { typography } from '../theme';
+import { useFeatureFlags } from '../context/FeatureFlagsContext';
 import { TaskListView } from '../components/TaskListView';
 import { Task } from '../types';
 
@@ -28,6 +30,9 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
   const [sortMenuVisible, setSortMenuVisible] = useState(false);
   const [filterMenuVisible, setFilterMenuVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState(filters.search);
+
+  const { theme } = useThemeMode();
+  const { isEnabled } = useFeatureFlags();
 
   useFocusEffect(
     useCallback(() => {
@@ -54,9 +59,14 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
   );
 
   const handleSearch = useCallback((query: string) => {
+    if (!isEnabled('search')) return;
     setSearchQuery(query);
     updateFilters({ search: query });
-  }, [updateFilters]);
+  }, [updateFilters, isEnabled]);
+
+  const searchEnabled = isEnabled('search');
+  const sortEnabled = isEnabled('sort');
+  const filterEnabled = isEnabled('filter');
 
   return (
     <TaskListView

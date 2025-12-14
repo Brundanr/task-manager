@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Task, PaginationParams, PaginatedResponse, FilterState } from '../types';
 import { StorageService } from '../utills/storage';
 import { TaskService } from '../services/taskService';
+import { FeatureFlagsService } from '../services/featureFlagsService';
 import { StorageItemsEnum } from '../constants/StorageItemsEnum';
 
 export const useTasks = (userId: string) => {
@@ -38,7 +39,24 @@ export const useTasks = (userId: string) => {
     try {
       const allTasks = await TaskService.getTasks(userId);
       setTasks(allTasks);
-      const paginated = await TaskService.getPaginatedTasks(userId, pagination, filters);
+      
+      // Respect feature flags - disable features if flags are off
+      const searchEnabled = FeatureFlagsService.isEnabled('search');
+      const sortEnabled = FeatureFlagsService.isEnabled('sort');
+      const filterEnabled = FeatureFlagsService.isEnabled('filter');
+      
+      const effectiveFilters = {
+        ...filters,
+        // Clear search if disabled
+        search: searchEnabled ? filters.search : '',
+        // Reset sort to default if disabled
+        sortField: sortEnabled ? filters.sortField : 'createdAt',
+        sortOrder: sortEnabled ? filters.sortOrder : 'desc',
+        // Clear filter if disabled
+        completed: filterEnabled ? filters.completed : null,
+      };
+      
+      const paginated = await TaskService.getPaginatedTasks(userId, pagination, effectiveFilters);
       setPaginatedData(paginated);
     } catch (error) {
       console.error('Error loading tasks:', error);

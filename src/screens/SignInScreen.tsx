@@ -9,6 +9,7 @@ import { validateEmail, validateRequired } from '../validators';
 import { useLocalization } from '../localization/LocalizationProvider';
 import i18n from '../i18n';
 import { ThemeToggleButton } from '../components/ThemeToggleButton';
+import { useFeatureFlags } from '../context/FeatureFlagsContext';
 import { spacing, colors, elevation, borderRadius } from '../theme';
 
 export const SignInScreen: React.FC = () => {
@@ -17,6 +18,7 @@ export const SignInScreen: React.FC = () => {
   const [backendError, setBackendError] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const { locale, setLocale } = useLocalization();
+  const { isEnabled } = useFeatureFlags();
 
   const validate = useCallback((values: { email: string; password: string }) => {
     const errors: Record<string, string> = {};
@@ -67,18 +69,20 @@ export const SignInScreen: React.FC = () => {
           <ThemeToggleButton />
         </View>
         {/* Language Toggle Buttons */}
-        <View style={styles.languageToggle}>
-          <Button
-            title="English"
-            onPress={() => setLocale('en')}
-            disabled={locale === 'en'}
-          />
-          <Button
-            title="Español"
-            onPress={() => setLocale('es')}
-            disabled={locale === 'es'}
-          />
-        </View>
+        {isEnabled('language') && (
+          <View style={styles.languageToggle}>
+            <Button
+              title="English"
+              onPress={() => setLocale('en')}
+              disabled={locale === 'en'}
+            />
+            <Button
+              title="Español"
+              onPress={() => setLocale('es')}
+              disabled={locale === 'es'}
+            />
+          </View>
+        )}
         <Surface style={styles.surface}>
           <Text variant="headlineMedium" style={styles.title}>
             {i18n.t('auth.signIn')}

@@ -7,6 +7,9 @@
     "invalidCredentials": "Correo o contraseña inválidos",
     "signInSuccess": "Sesión iniciada correctamente"
   },
+  "greeting": {
+    "hello": "Hola {{name}}"
+  },
   "tasks": {
     "title": "Tareas",
     "addTask": "Agregar Tarea",
@@ -27,7 +30,10 @@
     "sort": "Ordenar",
     "all": "Todo",
     "page": "Página",
-    "of": "de"
+    "of": "de",
+    "totalCount": "Total de Tareas: {{count}}",
+    "completedCount": "Completadas: {{count}}",
+    "incompleteCount": "Incompletas: {{count}}"
   },
   "errors": {
     "title": "Errores",
@@ -52,5 +58,21 @@
     "emailRequired": "El correo es obligatorio",
     "passwordRequired": "La contraseña es obligatoria",
     "emailInvalid": "Por favor ingrese un correo válido"
+  },
+  "featureFlags": {
+    "title": "Banderas de Funcionalidad",
+    "subtitle": "Activar o desactivar funciones. Los cambios se guardan automáticamente.",
+    "accessDenied": "Acceso Denegado: La gestión de banderas de funcionalidad está restringida solo a administradores.",
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+    "resetToDefaults": "Restablecer Valores Predeterminados",
+    "refreshFromRemote": "Actualizar desde Remoto",
+    "labels": {
+      "theme": "Alternar Tema",
+      "language": "Selección de Idioma",
+      "search": "Funcionalidad de Búsqueda",
+      "sort": "Funcionalidad de Ordenamiento",
+      "filter": "Funcionalidad de Filtrado"
+    }
   }
 }
