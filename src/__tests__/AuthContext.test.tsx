@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderHook, waitFor, act } from '@testing-library/react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 import { AuthService } from '../services/authService';
@@ -135,4 +134,3 @@ describe('AuthContext', () => {
     });
   });
 });
-

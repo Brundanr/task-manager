@@ -71,7 +71,11 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
             {item.completed ? i18n.t('tasks.completed') : i18n.t('tasks.incomplete')}
           </Chip>
         </View>
-        <Text variant="bodyMedium" numberOfLines={2} style={[styles.taskDescription, { color: theme.colors.onSurface }]}>
+        <Text
+          variant="bodyMedium"
+          numberOfLines={2}
+          style={[styles.taskDescription, { color: theme.colors.onSurface }]}
+        >
           {item.description}
         </Text>
         <Text variant="bodySmall" style={[styles.taskDate, { color: theme.colors.onSurface }]}>
@@ -84,7 +88,14 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 16 }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginHorizontal: 16,
+        }}
+      >
         {searchEnabled ? (
           <Searchbar
             placeholder={i18n.t('tasks.search')}
@@ -105,11 +116,7 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
               <Menu
                 visible={sortMenuVisible}
                 onDismiss={() => onSortMenuToggle(false)}
-                anchor={
-                  <Chip onPress={() => onSortMenuToggle(true)}>
-                    {i18n.t('tasks.sort')}
-                  </Chip>
-                }
+                anchor={<Chip onPress={() => onSortMenuToggle(true)}>{i18n.t('tasks.sort')}</Chip>}
               >
                 <Menu.Item
                   onPress={() => {
@@ -148,9 +155,7 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
                 visible={filterMenuVisible}
                 onDismiss={() => onFilterMenuToggle(false)}
                 anchor={
-                  <Chip onPress={() => onFilterMenuToggle(true)}>
-                    {i18n.t('tasks.filter')}
-                  </Chip>
+                  <Chip onPress={() => onFilterMenuToggle(true)}>{i18n.t('tasks.filter')}</Chip>
                 }
               >
                 <Menu.Item
@@ -182,14 +187,18 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
       <Text style={[typography.h1, { color: theme.colors.text, margin: 16 }]}>Task Manager</Text>
 
       {loading ? (
-        <Text style={[styles.loading, { color: theme.colors.text }]}>{i18n.t('common.loading')}</Text>
+        <Text style={[styles.loading, { color: theme.colors.text }]}>
+          {i18n.t('common.loading')}
+        </Text>
       ) : tasks.length === 0 ? (
-        <Text style={[styles.empty, { color: theme.colors.onSurface }]}>{i18n.t('tasks.noTasks')}</Text>
+        <Text style={[styles.empty, { color: theme.colors.onSurface }]}>
+          {i18n.t('tasks.noTasks')}
+        </Text>
       ) : (
         <FlatList
           data={tasks}
           renderItem={renderTask}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           contentContainerStyle={styles.list}
           accessibilityLabel="Tasks list"
         />
@@ -214,12 +223,22 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.backgroundLight,
+    flex: 1,
   },
-  searchbar: {
+  empty: {
+    color: colors.textSecondary,
+    marginTop: spacing.xl,
+    textAlign: 'center',
+  },
+  fab: {
+    bottom: 0,
     margin: spacing.md,
-    marginBottom: spacing.sm,
+    position: 'absolute',
+    right: 0,
+  },
+  filterChip: {
+    marginRight: spacing.sm,
   },
   filters: {
     flexDirection: 'row',
@@ -229,40 +248,29 @@ const styles = StyleSheet.create({
   list: {
     paddingBottom: 80,
   },
+  loading: {
+    marginTop: spacing.xl,
+    textAlign: 'center',
+  },
+  searchbar: {
+    margin: spacing.md,
+    marginBottom: spacing.sm,
+  },
+  taskDate: {
+    color: colors.textTertiary,
+  },
+  taskDescription: {
+    color: colors.textSecondary,
+    marginBottom: spacing.sm,
+  },
   taskHeader: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     marginBottom: spacing.sm,
   },
   taskTitle: {
     flex: 1,
     marginRight: spacing.sm,
   },
-  taskDescription: {
-    marginBottom: spacing.sm,
-    color: colors.textSecondary,
-  },
-  taskDate: {
-    color: colors.textTertiary,
-  },
-  fab: {
-    position: 'absolute',
-    margin: spacing.md,
-    right: 0,
-    bottom: 0,
-  },
-  loading: {
-    textAlign: 'center',
-    marginTop: spacing.xl,
-  },
-  empty: {
-    textAlign: 'center',
-    marginTop: spacing.xl,
-    color: colors.textSecondary,
-  },
-  filterChip: {
-    marginRight: spacing.sm,
-  },
 });
-

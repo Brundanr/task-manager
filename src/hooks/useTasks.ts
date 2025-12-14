@@ -39,12 +39,12 @@ export const useTasks = (userId: string) => {
     try {
       const allTasks = await TaskService.getTasks(userId);
       setTasks(allTasks);
-      
+
       // Respect feature flags - disable features if flags are off
       const searchEnabled = FeatureFlagsService.isEnabled('search');
       const sortEnabled = FeatureFlagsService.isEnabled('sort');
       const filterEnabled = FeatureFlagsService.isEnabled('filter');
-      
+
       const effectiveFilters = {
         ...filters,
         // Clear search if disabled
@@ -55,7 +55,7 @@ export const useTasks = (userId: string) => {
         // Clear filter if disabled
         completed: filterEnabled ? filters.completed : null,
       };
-      
+
       const paginated = await TaskService.getPaginatedTasks(userId, pagination, effectiveFilters);
       setPaginatedData(paginated);
     } catch (error) {
@@ -106,12 +106,12 @@ export const useTasks = (userId: string) => {
   );
 
   const updateFilters = useCallback((newFilters: Partial<FilterState>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }));
+    setFilters(prev => ({ ...prev, ...newFilters }));
     setPagination({ page: 1, limit: 5 }); // Reset to first page when filters change
   }, []);
 
   const changePage = useCallback((page: number) => {
-    setPagination((prev) => ({ ...prev, page }));
+    setPagination(prev => ({ ...prev, page }));
   }, []);
 
   // Memoized filtered and sorted tasks
@@ -135,4 +135,3 @@ export const useTasks = (userId: string) => {
     refreshTasks: loadTasks,
   };
 };
-

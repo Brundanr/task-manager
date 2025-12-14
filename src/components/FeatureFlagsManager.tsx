@@ -6,6 +6,7 @@ import { FeatureFlagKey, UserRole } from '../types';
 import { useThemeMode } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 import i18n from '../i18n';
+import { spacing } from '../theme';
 
 export const FeatureFlagsManager: React.FC = () => {
   const { flags, setFlag, resetToDefaults, refreshFromRemote, loading } = useFeatureFlags();
@@ -63,7 +64,7 @@ export const FeatureFlagsManager: React.FC = () => {
                 </View>
                 <Switch
                   value={value}
-                  onValueChange={(newValue) => handleToggle(flagKey, newValue)}
+                  onValueChange={newValue => handleToggle(flagKey, newValue)}
                   disabled={loading}
                 />
               </View>
@@ -97,39 +98,38 @@ export const FeatureFlagsManager: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-  },
-  card: {
-    marginBottom: 16,
-  },
-  title: {
-    marginBottom: 8,
-  },
-  subtitle: {
-    marginBottom: 16,
-  },
-  divider: {
-    marginVertical: 16,
-  },
-  flagRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-  flagInfo: {
-    flex: 1,
-    marginRight: 16,
-  },
   actions: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 16,
+    marginTop: spacing.md,
   },
   button: {
     flex: 1,
-    marginHorizontal: 8,
+    marginHorizontal: spacing.sm,
+  },
+  card: {
+    marginBottom: spacing.md,
+  },
+  container: {
+    padding: spacing.md,
+  },
+  divider: {
+    marginVertical: spacing.md,
+  },
+  flagInfo: {
+    flex: 1,
+    marginRight: spacing.md,
+  },
+  flagRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: spacing.sm,
+  },
+  subtitle: {
+    marginBottom: spacing.md,
+  },
+  title: {
+    marginBottom: spacing.sm,
   },
 });
-

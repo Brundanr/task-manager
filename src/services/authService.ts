@@ -24,12 +24,9 @@ export class AuthService {
 
   // Sign in with email and password
 
-  static async signIn(
-    email: string,
-    password: string
-  ): Promise<{ user: User; error?: string }> {
+  static async signIn(email: string, password: string): Promise<{ user: User; error?: string }> {
     // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     // Mock backend error for specific email
     if (email === 'error@example.com') {
@@ -39,9 +36,7 @@ export class AuthService {
       };
     }
 
-    const user = this.mockUsers.find(
-      (u) => u.email === email && u.password === password
-    );
+    const user = this.mockUsers.find(u => u.email === email && u.password === password);
 
     if (!user) {
       return {
@@ -51,7 +46,7 @@ export class AuthService {
     }
 
     // Remove password before storing
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, ...userWithoutPassword } = user;
     await StorageService.setItem(StorageItemsEnum.USER_SESSION, userWithoutPassword);
 
@@ -77,4 +72,3 @@ export class AuthService {
     return user !== null;
   }
 }
-

@@ -48,12 +48,7 @@ describe('ErrorContext', () => {
           await act(async () => {
             await result.current.logError('Test error', 500, 'stack trace');
           });
-          expect(ErrorService.logError).toHaveBeenCalledWith(
-            'Test error',
-            500,
-            '1',
-            'stack trace'
-          );
+          expect(ErrorService.logError).toHaveBeenCalledWith('Test error', 500, '1', 'stack trace');
         },
         { timeout: 3000 }
       );
@@ -165,12 +160,7 @@ describe('ErrorContext', () => {
           await act(async () => {
             await result.current.logError('Error', 500, 'Stack trace here');
           });
-          expect(ErrorService.logError).toHaveBeenCalledWith(
-            'Error',
-            500,
-            '1',
-            'Stack trace here'
-          );
+          expect(ErrorService.logError).toHaveBeenCalledWith('Error', 500, '1', 'Stack trace here');
         },
         { timeout: 3000 }
       );
@@ -189,4 +179,3 @@ describe('ErrorContext', () => {
     });
   });
 });
-

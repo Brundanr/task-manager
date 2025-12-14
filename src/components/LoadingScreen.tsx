@@ -9,22 +9,22 @@ export const LoadingScreen: React.FC = () => {
   const { t } = useLocalization();
   const { theme } = useThemeMode();
   return (
-    <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <ActivityIndicator size="large" color={theme.colors.primary} />
-      <Text style={[styles.text, {color: theme.colors.text}]}>{t('common.loading')}</Text>
+      <Text style={[styles.text, { color: theme.colors.text }]}>{t('common.loading')}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.white,
+    flex: 1,
+    justifyContent: 'center',
   },
   text: {
-    marginTop: spacing.md,
     color: colors.textSecondary,
+    marginTop: spacing.md,
   },
 });

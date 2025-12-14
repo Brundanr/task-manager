@@ -17,7 +17,7 @@ export const ErrorLogsScreen: React.FC = () => {
     setLoading(true);
     try {
       const errorLogs = await ErrorService.getAllErrors();
-      setErrors(errorLogs? errorLogs.reverse(): []); // Show newest first
+      setErrors(errorLogs ? errorLogs.reverse() : []); // Show newest first
     } catch (error) {
       console.error('Error loading error logs:', error);
       setErrors([]);
@@ -43,20 +43,31 @@ export const ErrorLogsScreen: React.FC = () => {
             <Chip
               style={{
                 ...styles.statusChip,
-                ...(item.statusCode >= 500 ? { backgroundColor: theme.colors.errorContainer || theme.colors.error + '20' } : {}),
+                ...(item.statusCode >= 500
+                  ? { backgroundColor: theme.colors.errorContainer || theme.colors.error + '20' }
+                  : {}),
               }}
             >
               {item.statusCode}
             </Chip>
           </View>
-          <Text variant="bodySmall" style={[styles.errorDetails, { color: theme.colors.onSurface }]}>
+          <Text
+            variant="bodySmall"
+            style={[styles.errorDetails, { color: theme.colors.onSurface }]}
+          >
             {i18n.t('errors.userId')}: {item.userId}
           </Text>
-          <Text variant="bodySmall" style={[styles.errorDetails, { color: theme.colors.onSurface }]}>
+          <Text
+            variant="bodySmall"
+            style={[styles.errorDetails, { color: theme.colors.onSurface }]}
+          >
             {i18n.t('errors.timestamp')}: {new Date(item.timestamp).toLocaleString()}
           </Text>
           {item.stack && (
-            <Text variant="bodySmall" style={[styles.stackTrace, { color: theme.colors.onSurface }]}>
+            <Text
+              variant="bodySmall"
+              style={[styles.stackTrace, { color: theme.colors.onSurface }]}
+            >
               {item.stack.substring(0, 200)}...
             </Text>
           )}
@@ -68,23 +79,25 @@ export const ErrorLogsScreen: React.FC = () => {
 
   if (loading) {
     return (
-      <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
-        <Text style={{color: theme.colors.text}}>{i18n.t('common.loading')}</Text>
+      <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+        <Text style={{ color: theme.colors.text }}>{i18n.t('common.loading')}</Text>
       </View>
     );
   }
 
   return (
-    <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       {errors.length === 0 ? (
         <View style={styles.empty}>
-          <Text variant="bodyLarge" style={{color: theme.colors.text}}>{i18n.t('errors.noErrors')}</Text>
+          <Text variant="bodyLarge" style={{ color: theme.colors.text }}>
+            {i18n.t('errors.noErrors')}
+          </Text>
         </View>
       ) : (
         <FlatList
           data={errors}
           renderItem={renderError}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           contentContainerStyle={styles.list}
           accessibilityLabel="Error logs list"
         />
@@ -94,43 +107,43 @@ export const ErrorLogsScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.backgroundLight,
-  },
-  list: {
-    padding: spacing.md,
-  },
   card: {
-    marginBottom: spacing.md,
     elevation: elevation.low,
+    marginBottom: spacing.md,
+  },
+  container: {
+    backgroundColor: colors.backgroundLight,
+    flex: 1,
+  },
+  empty: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  errorDetails: {
+    color: colors.textSecondary,
+    marginTop: spacing.xs,
   },
   errorHeader: {
+    alignItems: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
     marginBottom: spacing.sm,
   },
   errorMessage: {
     flex: 1,
     marginRight: spacing.sm,
   },
-  statusChip: {
-    alignSelf: 'flex-start',
-  },
-  errorDetails: {
-    marginTop: spacing.xs,
-    color: colors.textSecondary,
+  list: {
+    padding: spacing.md,
   },
   stackTrace: {
-    marginTop: spacing.sm,
+    color: colors.textTertiary,
     fontFamily: 'monospace',
     fontSize: 10,
-    color: colors.textTertiary,
+    marginTop: spacing.sm,
   },
-  empty: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  statusChip: {
+    alignSelf: 'flex-start',
   },
 });

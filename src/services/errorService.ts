@@ -21,9 +21,9 @@ export class ErrorService {
         stack,
       };
 
-    const logs = await StorageService.getItem<ErrorLog[]>(StorageItemsEnum.ERROR_LOGS) || [];
-    logs.push(errorLog);
-    await StorageService.setItem(StorageItemsEnum.ERROR_LOGS, logs);
+      const logs = (await StorageService.getItem<ErrorLog[]>(StorageItemsEnum.ERROR_LOGS)) || [];
+      logs.push(errorLog);
+      await StorageService.setItem(StorageItemsEnum.ERROR_LOGS, logs);
 
       console.log('Error logged successfully:', errorLog.id);
       return errorLog;
@@ -52,4 +52,3 @@ export class ErrorService {
     await StorageService.removeItem(StorageItemsEnum.ERROR_LOGS);
   }
 }
-

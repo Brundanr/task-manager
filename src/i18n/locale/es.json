@@ -1,4 +1,7 @@
 {
+  "app": {
+    "title": "Administrador de Tareas"
+  },
   "auth": {
     "signIn": "Iniciar Sesión",
     "signOut": "Cerrar Sesión",

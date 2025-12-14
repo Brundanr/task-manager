@@ -4,36 +4,34 @@ import { SignInScreen } from '../screens/SignInScreen';
 import * as AuthContext from '../context/AuthContext';
 import * as ErrorContext from '../context/ErrorContext';
 import * as LocalizationProvider from '../localization/LocalizationProvider';
-
-jest.mock('expo-localization');
-
-jest.mock('react-native-paper', () => {
-  const ActualRN = jest.requireActual('react-native-paper');
-  return {
-    ...ActualRN,
-    TextInput: (props: any) => <ActualRN.TextInput {...props} />, // pass all props
-    Button: (props: any) => <ActualRN.Button {...props} />,
-    Surface: (props: any) => <ActualRN.Surface {...props} />,
-  };
-});
+import * as FeatureFlagsContext from '../context/FeatureFlagsContext';
+import i18n from '../i18n';
+import { FeatureFlagKey } from '../types';
 
 describe('SignInScreen', () => {
   const signInMock = jest.fn();
   const logErrorMock = jest.fn();
   const setLocaleMock = jest.fn();
 
+  interface SetupOptions {
+    locale?: string;
+    signInReturn?: { error?: string };
+    isLanguageEnabled?: boolean;
+  }
+
   function setup({
     locale = 'en',
-    loading = false,
     signInReturn = {},
-  }: any = {}) {
+    isLanguageEnabled = true,
+  }: SetupOptions = {}) {
     // Force i18n locale and always load English for all tests regardless of 'locale' to keep stable labels for queries
-    const i18n = require('../i18n').default;
     i18n.setLocale('en');
     jest.spyOn(AuthContext, 'useAuth').mockReturnValue({
-      signIn: signInMock.mockImplementation(
-        () => Promise.resolve(signInReturn)
-      ),
+      user: null,
+      loading: false,
+      signIn: signInMock.mockImplementation(() => Promise.resolve(signInReturn)),
+      signOut: jest.fn(),
+      isAuthenticated: false,
     });
     jest.spyOn(ErrorContext, 'useErrorLogger').mockReturnValue({
       logError: logErrorMock,
@@ -41,6 +39,25 @@ describe('SignInScreen', () => {
     jest.spyOn(LocalizationProvider, 'useLocalization').mockReturnValue({
       locale,
       setLocale: setLocaleMock,
+      t: (key: string) => key,
+    });
+    jest.spyOn(FeatureFlagsContext, 'useFeatureFlags').mockReturnValue({
+      flags: {
+        theme: true,
+        language: isLanguageEnabled,
+        search: true,
+        sort: true,
+        filter: true,
+      },
+      isEnabled: (key: FeatureFlagKey) => {
+        if (key === 'language') return isLanguageEnabled;
+        return true;
+      },
+      setFlag: jest.fn(),
+      setFlags: jest.fn(),
+      resetToDefaults: jest.fn(),
+      refreshFromRemote: jest.fn(),
+      loading: false,
     });
     return render(<SignInScreen />);
   }
@@ -55,12 +72,12 @@ describe('SignInScreen', () => {
   });
 
   it('renders initial state correctly (Spanish)', () => {
-    const { toJSON, getByText } = setup({ locale: 'es' });
+    const { toJSON } = setup({ locale: 'es' });
     expect(toJSON()).toMatchSnapshot();
   });
 
   it('shows validation errors if input is empty and Sign In is pressed', async () => {
-    const { getByLabelText, getByA11yHint, getByText, toJSON } = setup();
+    const { getByLabelText, toJSON } = setup();
     const signInBtn = getByLabelText('auth.signIn');
     await act(async () => {
       fireEvent.press(signInBtn);
@@ -80,14 +97,18 @@ describe('SignInScreen', () => {
       fireEvent.changeText(pwdInput, 'foobar');
     });
     await act(async () => {
-      signInMock.mockImplementationOnce(() => new Promise(resolve => setTimeout(() => resolve({}), 500)));
+      signInMock.mockImplementationOnce(
+        () => new Promise(resolve => setTimeout(() => resolve({}), 500))
+      );
       fireEvent.press(signInBtn);
     });
     expect(toJSON()).toMatchSnapshot();
   });
 
   it('shows backend error returned from signIn', async () => {
-    const { getByLabelText, getByText, toJSON } = setup({ signInReturn: { error: 'Invalid email or password' } });
+    const { getByLabelText, getByText, toJSON } = setup({
+      signInReturn: { error: 'Invalid email or password' },
+    });
     const emailInput = getByLabelText('auth.email');
     const pwdInput = getByLabelText('auth.password');
     const signInBtn = getByLabelText('auth.signIn');

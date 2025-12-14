@@ -29,8 +29,10 @@ export const SignInScreen: React.FC = () => {
     return errors;
   }, []);
 
-  const { values, errors, touched, handleChange, handleBlur, validateForm } =
-    useFormValidation({ email: '', password: '' }, validate);
+  const { values, errors, touched, handleChange, handleBlur, validateForm } = useFormValidation(
+    { email: '', password: '' },
+    validate
+  );
 
   const handleSubmit = useCallback(async () => {
     setBackendError('');
@@ -44,7 +46,8 @@ export const SignInScreen: React.FC = () => {
       if (result.error) {
         setBackendError(result.error);
         // Log all sign-in errors (both authentication failures and server errors)
-        const errorStack = values.email === 'error@example.com' ? 'Sign in attempt failed' : undefined;
+        const errorStack =
+          values.email === 'error@example.com' ? 'Sign in attempt failed' : undefined;
         await logError(result.error, 500, errorStack);
       }
     } catch (error) {
@@ -62,8 +65,10 @@ export const SignInScreen: React.FC = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-
       <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Text variant="headlineLarge" style={styles.appTitle}>
+          {i18n.t('app.title')}
+        </Text>
         {/* Theme Toggle */}
         <View style={styles.themeToggle}>
           <ThemeToggleButton />
@@ -71,16 +76,8 @@ export const SignInScreen: React.FC = () => {
         {/* Language Toggle Buttons */}
         {isEnabled('language') && (
           <View style={styles.languageToggle}>
-            <Button
-              title="English"
-              onPress={() => setLocale('en')}
-              disabled={locale === 'en'}
-            />
-            <Button
-              title="Español"
-              onPress={() => setLocale('es')}
-              disabled={locale === 'es'}
-            />
+            <Button title="English" onPress={() => setLocale('en')} disabled={locale === 'en'} />
+            <Button title="Español" onPress={() => setLocale('es')} disabled={locale === 'es'} />
           </View>
         )}
         <Surface style={styles.surface}>
@@ -91,7 +88,7 @@ export const SignInScreen: React.FC = () => {
           <TextInput
             label={i18n.t('auth.email')}
             value={values.email}
-            onChangeText={(text) => handleChange('email', text)}
+            onChangeText={text => handleChange('email', text)}
             onBlur={() => handleBlur('email')}
             error={!!(touched.email && errors.email)}
             keyboardType="email-address"
@@ -100,14 +97,12 @@ export const SignInScreen: React.FC = () => {
             accessibilityHint={'Enter your email address'}
             style={styles.input}
           />
-          {touched.email && errors.email && (
-            <Text style={styles.errorText}>{errors.email}</Text>
-          )}
+          {touched.email && errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
           <TextInput
             label={i18n.t('auth.password')}
             value={values.password}
-            onChangeText={(text) => handleChange('password', text)}
+            onChangeText={text => handleChange('password', text)}
             onBlur={() => handleBlur('password')}
             error={!!(touched.password && errors.password)}
             secureTextEntry
@@ -120,9 +115,7 @@ export const SignInScreen: React.FC = () => {
             <Text style={styles.errorText}>{errors.password}</Text>
           )}
 
-          {backendError && (
-            <Text style={styles.backendErrorText}>{backendError}</Text>
-          )}
+          {backendError && <Text style={styles.backendErrorText}>{backendError}</Text>}
 
           <View style={styles.button}>
             <Button
@@ -141,41 +134,10 @@ export const SignInScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    padding: spacing.md,
-  },
-  themeToggle: { 
-    alignItems: 'flex-end',
-    marginRight: 8,
-    marginBottom: 0
-  },
-  languageToggle: { 
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 16 
-  },
-  surface: {
-    padding: spacing.lg,
-    borderRadius: borderRadius.md,
-    elevation: elevation.medium,
-  },
-  title: {
-    marginBottom: spacing.lg,
+  appTitle: {
+    fontWeight: 'bold',
+    marginBottom: spacing.md,
     textAlign: 'center',
-  },
-  input: {
-    marginBottom: spacing.sm,
-  },
-  errorText: {
-    color: colors.error,
-    fontSize: 12,
-    marginBottom: spacing.sm,
-    marginLeft: 12,
   },
   backendErrorText: {
     color: colors.error,
@@ -186,10 +148,46 @@ const styles = StyleSheet.create({
   button: {
     marginTop: spacing.sm,
   },
-  hintText: {
-    marginTop: spacing.md,
+  container: {
+    flex: 1,
+  },
+  errorText: {
+    color: colors.error,
     fontSize: 12,
-    textAlign: 'center',
+    marginBottom: spacing.sm,
+    marginLeft: spacing.md,
+  },
+  hintText: {
     color: colors.textSecondary,
+    fontSize: 12,
+    marginTop: spacing.md,
+    textAlign: 'center',
+  },
+  input: {
+    marginBottom: spacing.sm,
+  },
+  languageToggle: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: spacing.md,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: spacing.md,
+  },
+  surface: {
+    borderRadius: borderRadius.md,
+    elevation: elevation.medium,
+    padding: spacing.lg,
+  },
+  themeToggle: {
+    alignItems: 'flex-end',
+    marginBottom: 0,
+    marginRight: spacing.md,
+  },
+  title: {
+    marginBottom: spacing.lg,
+    textAlign: 'center',
   },
 });

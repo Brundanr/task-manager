@@ -61,17 +61,16 @@ export const Pagination: React.FC<PaginationProps> = ({
 };
 
 const styles = StyleSheet.create({
+  pageText: {
+    marginHorizontal: spacing.md,
+  },
   pagination: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
     padding: spacing.md,
   },
   paginationButton: {
     marginHorizontal: spacing.sm,
   },
-  pageText: {
-    marginHorizontal: spacing.md,
-  },
 });
-
