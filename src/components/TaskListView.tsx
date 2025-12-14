@@ -4,8 +4,10 @@ import { Text, FAB, Chip, Menu, Searchbar } from 'react-native-paper';
 import { Task, PaginationParams, PaginatedResponse, FilterState } from '../types';
 import { Card } from './Card';
 import { Pagination } from './Pagination';
-import { spacing, colors } from '../theme';
+import { spacing, colors, typography } from '../theme';
 import i18n from '../i18n';
+import { useThemeMode } from '../context/ThemeContext';
+import { ThemeToggleButton } from './ThemeToggleButton';
 
 interface TaskListViewProps {
   tasks: Task[];
@@ -42,6 +44,8 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
   onSortMenuToggle,
   onFilterMenuToggle,
 }) => {
+  const { theme } = useThemeMode();
+  
   const renderTask = useCallback(
     ({ item }: { item: Task }) => (
       <Card
@@ -50,7 +54,7 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
         accessibilityHint="Double tap to view task details"
       >
         <View style={styles.taskHeader}>
-          <Text variant="titleMedium" style={styles.taskTitle}>
+          <Text variant="titleMedium"  style={[styles.taskTitle, { color: theme.colors.text }]}>
             {item.title}
           </Text>
           <Chip
@@ -61,26 +65,36 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
             {item.completed ? i18n.t('tasks.completed') : i18n.t('tasks.incomplete')}
           </Chip>
         </View>
-        <Text variant="bodyMedium" numberOfLines={2} style={styles.taskDescription}>
+        <Text variant="bodyMedium" numberOfLines={2}  style={[styles.taskDescription, { color: theme.colors.onSurface }]}>
           {item.description}
         </Text>
-        <Text variant="bodySmall" style={styles.taskDate}>
+        <Text variant="bodySmall" style={[styles.taskDate, { color: theme.colors.onSurface }]}>
           {new Date(item.createdAt).toLocaleDateString()}
         </Text>
       </Card>
     ),
-    [onTaskPress, onToggleComplete]
+    [onTaskPress, onToggleComplete, theme]
   );
 
   return (
-    <View style={styles.container}>
-      <Searchbar
-        placeholder={i18n.t('tasks.search')}
-        onChangeText={onSearch}
-        value={searchQuery}
-        style={styles.searchbar}
-        accessibilityLabel={i18n.t('tasks.search')}
-      />
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 16 }}>
+        {/* <Searchbar
+          placeholder={i18n.t('tasks.search')}
+          onChangeText={handleSearch}
+          value={searchQuery}
+          style={[styles.searchbar, { flex: 1 }]}
+          accessibilityLabel={i18n.t('tasks.search')}
+        /> */}
+        <Searchbar
+          placeholder={i18n.t('tasks.search')}
+          onChangeText={onSearch}
+          value={searchQuery}
+          style={[styles.searchbar, { flex: 1 }]}
+          accessibilityLabel={i18n.t('tasks.search')}
+        />
+        <ThemeToggleButton />
+      </View>
       <View style={styles.filters}>
         <View style={styles.filterChip}>
           <Menu
@@ -157,10 +171,12 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
         </View>
       </View>
 
+      <Text style={[typography.h1, { color: theme.colors.text, margin: 16 }]}>Task Manager</Text>
+
       {loading ? (
-        <Text style={styles.loading}>{i18n.t('common.loading')}</Text>
+        <Text style={[styles.loading, { color: theme.colors.text }]}>{i18n.t('common.loading')}</Text>
       ) : tasks.length === 0 ? (
-        <Text style={styles.empty}>{i18n.t('tasks.noTasks')}</Text>
+        <Text style={[styles.empty, { color: theme.colors.onSurface }]}>{i18n.t('tasks.noTasks')}</Text>
       ) : (
         <FlatList
           data={tasks}

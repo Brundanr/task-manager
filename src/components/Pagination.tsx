@@ -4,6 +4,7 @@ import { Button } from 'react-native-paper';
 import { PaginationParams, PaginatedResponse } from '../types';
 import { spacing } from '../theme';
 import i18n from '../i18n';
+import { useThemeMode } from '../context/ThemeContext';
 
 interface PaginationProps {
   pagination: PaginationParams;
@@ -16,6 +17,8 @@ export const Pagination: React.FC<PaginationProps> = ({
   paginatedData,
   onPageChange,
 }) => {
+  const { theme } = useThemeMode();
+
   if (!paginatedData || paginatedData.totalPages <= 1) {
     return null;
   }
@@ -40,8 +43,8 @@ export const Pagination: React.FC<PaginationProps> = ({
           <Text>{'<'}</Text>
         </Button>
       </View>
-      <Text style={styles.pageText}>
-      {i18n.t('tasks.page')} {pagination.page} {i18n.t('tasks.of')} {paginatedData.totalPages}
+      <Text style={[styles.pageText, { color: theme.colors.text }]}>
+        {i18n.t('tasks.page')} {pagination.page} {i18n.t('tasks.of')} {paginatedData.totalPages}
       </Text>
       <View style={styles.paginationButton}>
         <Button

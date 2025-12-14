@@ -58,6 +58,7 @@ exports[`Button renders correctly and matches snapshot 1`] = `
           "color": "#ffffff",
           "fontSize": 16,
           "fontWeight": "600",
+          "lineHeight": 24,
         }
       }
     >

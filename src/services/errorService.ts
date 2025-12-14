@@ -11,20 +11,34 @@ export class ErrorService {
     userId: string,
     stack?: string
   ): Promise<ErrorLog> {
-    const errorLog: ErrorLog = {
-      id: Date.now().toString(),
-      message,
-      statusCode,
-      userId,
-      timestamp: new Date().toISOString(),
-      stack,
-    };
+    try {
+      const errorLog: ErrorLog = {
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        message,
+        statusCode,
+        userId,
+        timestamp: new Date().toISOString(),
+        stack,
+      };
 
     const logs = await StorageService.getItem<ErrorLog[]>(StorageItemsEnum.ERROR_LOGS) || [];
     logs.push(errorLog);
     await StorageService.setItem(StorageItemsEnum.ERROR_LOGS, logs);
 
-    return errorLog;
+      console.log('Error logged successfully:', errorLog.id);
+      return errorLog;
+    } catch (error) {
+      console.error('Failed to log error:', error);
+      // Return a minimal error log even if storage fails
+      return {
+        id: Date.now().toString(),
+        message,
+        statusCode,
+        userId,
+        timestamp: new Date().toISOString(),
+        stack,
+      };
+    }
   }
 
   // Get all error logs (admin only)

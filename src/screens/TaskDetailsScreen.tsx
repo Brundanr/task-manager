@@ -5,10 +5,13 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { useFormValidation } from '../hooks/useFormValidation';
 import { validateRequired } from '../validators';
 import { useAuth } from '../context/AuthContext';
-import { Task, TaskDetailsParams } from '../types';
+import { Task } from '../types';
+import { TaskDetailsParams } from '../types/task';
 import { useTasks } from '../hooks/useTasks';
 import { TaskService } from '../services/taskService';
 import i18n from '../i18n';
+import { typography } from '../theme';
+import { useThemeMode } from '../context/ThemeContext';
 import { spacing, colors, elevation, borderRadius } from '../theme';
 
 export const TaskDetailsScreen: React.FC = () => {
@@ -22,6 +25,7 @@ export const TaskDetailsScreen: React.FC = () => {
   const [task, setTask] = useState<Task | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(!taskId);
+  const { theme } = useThemeMode();
 
   const validate = useCallback((values: { title: string; description: string }) => {
     const errors: Record<string, string> = {};
@@ -84,20 +88,20 @@ export const TaskDetailsScreen: React.FC = () => {
 
   if (loading) {
     return (
-      <View style={styles.container}>
-        <Text>{i18n.t('common.loading')}</Text>
+      <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
+        <Text style={{color: theme.colors.text}}>{i18n.t('common.loading')}</Text>
       </View>
     );
   }
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, {backgroundColor: theme.colors.background}]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Surface style={styles.surface}>
-          <Text variant="headlineSmall" style={styles.title}>
+        <Surface style={[styles.surface, {backgroundColor: theme.colors.surface}]}>
+          <Text variant="headlineSmall" style={[styles.title, {color: theme.colors.text}]}>
             {taskId ? i18n.t('tasks.editTask') : i18n.t('tasks.addTask')}
           </Text>
 
@@ -112,7 +116,7 @@ export const TaskDetailsScreen: React.FC = () => {
             style={styles.input}
           />
           {touched.title && errors.title && (
-            <Text style={styles.errorText}>{errors.title}</Text>
+            <Text style={[styles.errorText, { color: theme.colors.error }]}>{errors.title}</Text>
           )}
 
           <TextInput
@@ -128,18 +132,18 @@ export const TaskDetailsScreen: React.FC = () => {
             style={styles.input}
           />
           {touched.description && errors.description && (
-            <Text style={styles.errorText}>{errors.description}</Text>
+            <Text style={[styles.errorText, { color: theme.colors.error }]}>{errors.description}</Text>
           )}
 
           {task && !isEditing && (
-            <View style={styles.taskInfo}>
-              <Text variant="bodyMedium">
+            <View style={[styles.taskInfo, { backgroundColor: theme.colors.surfaceVariant || theme.colors.surface }]}>
+              <Text variant="bodyMedium" style={{ color: theme.colors.text }}>
                 {i18n.t('tasks.completed')}: {task.completed ? i18n.t('tasks.completed') : i18n.t('tasks.incomplete')}
               </Text>
-              <Text variant="bodySmall" style={styles.dateText}>
+              <Text variant="bodySmall" style={[styles.dateText, { color: theme.colors.onSurface }]}>
                 Created: {new Date(task.createdAt).toLocaleString()}
               </Text>
-              <Text variant="bodySmall" style={styles.dateText}>
+              <Text variant="bodySmall" style={[styles.dateText, { color: theme.colors.onSurface }]}>
                 Updated: {new Date(task.updatedAt).toLocaleString()}
               </Text>
             </View>

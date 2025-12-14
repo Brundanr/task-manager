@@ -8,6 +8,7 @@ import { useFormValidation } from '../hooks/useFormValidation';
 import { validateEmail, validateRequired } from '../validators';
 import { useLocalization } from '../localization/LocalizationProvider';
 import i18n from '../i18n';
+import { ThemeToggleButton } from '../components/ThemeToggleButton';
 import { spacing, colors, elevation, borderRadius } from '../theme';
 
 export const SignInScreen: React.FC = () => {
@@ -40,15 +41,15 @@ export const SignInScreen: React.FC = () => {
       const result = await signIn(values.email, values.password);
       if (result.error) {
         setBackendError(result.error);
-        // Simulate backend error for specific email
-        if (values.email === 'error@example.com') {
-          await logError(result.error, 500, 'Sign in attempt failed');
-        }
+        // Log all sign-in errors (both authentication failures and server errors)
+        const errorStack = values.email === 'error@example.com' ? 'Sign in attempt failed' : undefined;
+        await logError(result.error, 500, errorStack);
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+      const errorStack = error instanceof Error ? error.stack : undefined;
       setBackendError(errorMessage);
-      await logError(errorMessage, 500);
+      await logError(errorMessage, 500, errorStack);
     } finally {
       setLoading(false);
     }
@@ -61,19 +62,23 @@ export const SignInScreen: React.FC = () => {
     >
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-      {/* Language Toggle Buttons */}
-          <View style={styles.languageToggle}>
-            <Button
-              title="English"
-              onPress={() => setLocale('en')}
-              disabled={locale === 'en'}
-            />
-            <Button
-              title="Español"
-              onPress={() => setLocale('es')}
-              disabled={locale === 'es'}
-            />
-          </View>
+        {/* Theme Toggle */}
+        <View style={styles.themeToggle}>
+          <ThemeToggleButton />
+        </View>
+        {/* Language Toggle Buttons */}
+        <View style={styles.languageToggle}>
+          <Button
+            title="English"
+            onPress={() => setLocale('en')}
+            disabled={locale === 'en'}
+          />
+          <Button
+            title="Español"
+            onPress={() => setLocale('es')}
+            disabled={locale === 'es'}
+          />
+        </View>
         <Surface style={styles.surface}>
           <Text variant="headlineMedium" style={styles.title}>
             {i18n.t('auth.signIn')}
@@ -139,6 +144,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     padding: spacing.md,
+  },
+  themeToggle: { 
+    alignItems: 'flex-end',
+    marginRight: 8,
+    marginBottom: 0
   },
   languageToggle: { 
     flexDirection: 'row',

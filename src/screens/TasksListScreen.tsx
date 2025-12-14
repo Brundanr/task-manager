@@ -2,9 +2,10 @@ import React, { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { useTasks } from '../hooks/useTasks';
-import { Task } from '../types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useThemeMode } from '../context/ThemeContext';
 import { TaskListView } from '../components/TaskListView';
+import { Task } from '../types';
 
 type TasksListNavigationProp = NativeStackNavigationProp<{
   TaskDetails: { taskId: string | null };

@@ -27,6 +27,157 @@ exports[`SignInScreen renders initial state correctly (English) 1`] = `
       <View
         style={
           {
+            "alignItems": "flex-end",
+            "marginBottom": 0,
+            "marginRight": 8,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "flexDirection": "column",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": undefined,
+              }
+            }
+          >
+            Light
+          </Text>
+          <View
+            collapsable={false}
+            style={
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 20,
+                "height": 40,
+                "margin": 6,
+                "shadowColor": "#000",
+                "shadowOffset": {
+                  "height": 0,
+                  "width": 0,
+                },
+                "shadowOpacity": 0,
+                "shadowRadius": 0,
+                "width": 40,
+              }
+            }
+            testID="icon-button-container-outer-layer"
+          >
+            <View
+              collapsable={false}
+              style={
+                {
+                  "backgroundColor": "transparent",
+                  "borderColor": "rgba(121, 116, 126, 1)",
+                  "borderRadius": 20,
+                  "borderWidth": 0,
+                  "elevation": 0,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "shadowColor": "#000",
+                  "shadowOffset": {
+                    "height": 0,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 0,
+                  "shadowRadius": 0,
+                }
+              }
+              testID="icon-button-container"
+            >
+              <View
+                accessibilityComponentType="button"
+                accessibilityLabel="Switch to dark mode"
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityTraits="button"
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                centered={true}
+                collapsable={false}
+                focusable={true}
+                hitSlop={
+                  {
+                    "bottom": 6,
+                    "left": 6,
+                    "right": 6,
+                    "top": 6,
+                  }
+                }
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    {
+                      "overflow": "hidden",
+                    },
+                    [
+                      {
+                        "alignItems": "center",
+                        "flexGrow": 1,
+                        "justifyContent": "center",
+                      },
+                      undefined,
+                    ],
+                  ]
+                }
+                testID="icon-button"
+              >
+                <Text
+                  accessibilityElementsHidden={true}
+                  importantForAccessibility="no-hide-descendants"
+                  pointerEvents="none"
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                      },
+                      {
+                        "color": "rgba(73, 69, 79, 1)",
+                        "fontSize": 24,
+                      },
+                    ]
+                  }
+                >
+                  □
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          {
             "flexDirection": "row",
             "justifyContent": "space-around",
             "padding": 16,
@@ -91,6 +242,7 @@ exports[`SignInScreen renders initial state correctly (English) 1`] = `
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -155,6 +307,7 @@ exports[`SignInScreen renders initial state correctly (English) 1`] = `
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -749,6 +902,7 @@ exports[`SignInScreen renders initial state correctly (English) 1`] = `
                       "color": "#ffffff",
                       "fontSize": 16,
                       "fontWeight": "600",
+                      "lineHeight": 24,
                     }
                   }
                 >
@@ -791,6 +945,157 @@ exports[`SignInScreen renders initial state correctly (Spanish) 1`] = `
       <View
         style={
           {
+            "alignItems": "flex-end",
+            "marginBottom": 0,
+            "marginRight": 8,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "flexDirection": "column",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": undefined,
+              }
+            }
+          >
+            Light
+          </Text>
+          <View
+            collapsable={false}
+            style={
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 20,
+                "height": 40,
+                "margin": 6,
+                "shadowColor": "#000",
+                "shadowOffset": {
+                  "height": 0,
+                  "width": 0,
+                },
+                "shadowOpacity": 0,
+                "shadowRadius": 0,
+                "width": 40,
+              }
+            }
+            testID="icon-button-container-outer-layer"
+          >
+            <View
+              collapsable={false}
+              style={
+                {
+                  "backgroundColor": "transparent",
+                  "borderColor": "rgba(121, 116, 126, 1)",
+                  "borderRadius": 20,
+                  "borderWidth": 0,
+                  "elevation": 0,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "shadowColor": "#000",
+                  "shadowOffset": {
+                    "height": 0,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 0,
+                  "shadowRadius": 0,
+                }
+              }
+              testID="icon-button-container"
+            >
+              <View
+                accessibilityComponentType="button"
+                accessibilityLabel="Switch to dark mode"
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityTraits="button"
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                centered={true}
+                collapsable={false}
+                focusable={true}
+                hitSlop={
+                  {
+                    "bottom": 6,
+                    "left": 6,
+                    "right": 6,
+                    "top": 6,
+                  }
+                }
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    {
+                      "overflow": "hidden",
+                    },
+                    [
+                      {
+                        "alignItems": "center",
+                        "flexGrow": 1,
+                        "justifyContent": "center",
+                      },
+                      undefined,
+                    ],
+                  ]
+                }
+                testID="icon-button"
+              >
+                <Text
+                  accessibilityElementsHidden={true}
+                  importantForAccessibility="no-hide-descendants"
+                  pointerEvents="none"
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                      },
+                      {
+                        "color": "rgba(73, 69, 79, 1)",
+                        "fontSize": 24,
+                      },
+                    ]
+                  }
+                >
+                  □
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          {
             "flexDirection": "row",
             "justifyContent": "space-around",
             "padding": 16,
@@ -854,6 +1159,7 @@ exports[`SignInScreen renders initial state correctly (Spanish) 1`] = `
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -919,6 +1225,7 @@ exports[`SignInScreen renders initial state correctly (Spanish) 1`] = `
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -1513,6 +1820,7 @@ exports[`SignInScreen renders initial state correctly (Spanish) 1`] = `
                       "color": "#ffffff",
                       "fontSize": 16,
                       "fontWeight": "600",
+                      "lineHeight": 24,
                     }
                   }
                 >
@@ -1552,6 +1860,157 @@ exports[`SignInScreen shows backend error returned from signIn 1`] = `
     }
   >
     <View>
+      <View
+        style={
+          {
+            "alignItems": "flex-end",
+            "marginBottom": 0,
+            "marginRight": 8,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "flexDirection": "column",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": undefined,
+              }
+            }
+          >
+            Light
+          </Text>
+          <View
+            collapsable={false}
+            style={
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 20,
+                "height": 40,
+                "margin": 6,
+                "shadowColor": "#000",
+                "shadowOffset": {
+                  "height": 0,
+                  "width": 0,
+                },
+                "shadowOpacity": 0,
+                "shadowRadius": 0,
+                "width": 40,
+              }
+            }
+            testID="icon-button-container-outer-layer"
+          >
+            <View
+              collapsable={false}
+              style={
+                {
+                  "backgroundColor": "transparent",
+                  "borderColor": "rgba(121, 116, 126, 1)",
+                  "borderRadius": 20,
+                  "borderWidth": 0,
+                  "elevation": 0,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "shadowColor": "#000",
+                  "shadowOffset": {
+                    "height": 0,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 0,
+                  "shadowRadius": 0,
+                }
+              }
+              testID="icon-button-container"
+            >
+              <View
+                accessibilityComponentType="button"
+                accessibilityLabel="Switch to dark mode"
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityTraits="button"
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                centered={true}
+                collapsable={false}
+                focusable={true}
+                hitSlop={
+                  {
+                    "bottom": 6,
+                    "left": 6,
+                    "right": 6,
+                    "top": 6,
+                  }
+                }
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    {
+                      "overflow": "hidden",
+                    },
+                    [
+                      {
+                        "alignItems": "center",
+                        "flexGrow": 1,
+                        "justifyContent": "center",
+                      },
+                      undefined,
+                    ],
+                  ]
+                }
+                testID="icon-button"
+              >
+                <Text
+                  accessibilityElementsHidden={true}
+                  importantForAccessibility="no-hide-descendants"
+                  pointerEvents="none"
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                      },
+                      {
+                        "color": "rgba(73, 69, 79, 1)",
+                        "fontSize": 24,
+                      },
+                    ]
+                  }
+                >
+                  □
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
       <View
         style={
           {
@@ -1619,6 +2078,7 @@ exports[`SignInScreen shows backend error returned from signIn 1`] = `
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -1683,6 +2143,7 @@ exports[`SignInScreen shows backend error returned from signIn 1`] = `
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -2303,6 +2764,7 @@ exports[`SignInScreen shows backend error returned from signIn 1`] = `
                       "color": "#ffffff",
                       "fontSize": 16,
                       "fontWeight": "600",
+                      "lineHeight": 24,
                     }
                   }
                 >
@@ -2342,6 +2804,157 @@ exports[`SignInScreen shows loading state on submit 1`] = `
     }
   >
     <View>
+      <View
+        style={
+          {
+            "alignItems": "flex-end",
+            "marginBottom": 0,
+            "marginRight": 8,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "flexDirection": "column",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": undefined,
+              }
+            }
+          >
+            Light
+          </Text>
+          <View
+            collapsable={false}
+            style={
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 20,
+                "height": 40,
+                "margin": 6,
+                "shadowColor": "#000",
+                "shadowOffset": {
+                  "height": 0,
+                  "width": 0,
+                },
+                "shadowOpacity": 0,
+                "shadowRadius": 0,
+                "width": 40,
+              }
+            }
+            testID="icon-button-container-outer-layer"
+          >
+            <View
+              collapsable={false}
+              style={
+                {
+                  "backgroundColor": "transparent",
+                  "borderColor": "rgba(121, 116, 126, 1)",
+                  "borderRadius": 20,
+                  "borderWidth": 0,
+                  "elevation": 0,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "shadowColor": "#000",
+                  "shadowOffset": {
+                    "height": 0,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 0,
+                  "shadowRadius": 0,
+                }
+              }
+              testID="icon-button-container"
+            >
+              <View
+                accessibilityComponentType="button"
+                accessibilityLabel="Switch to dark mode"
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityTraits="button"
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                centered={true}
+                collapsable={false}
+                focusable={true}
+                hitSlop={
+                  {
+                    "bottom": 6,
+                    "left": 6,
+                    "right": 6,
+                    "top": 6,
+                  }
+                }
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    {
+                      "overflow": "hidden",
+                    },
+                    [
+                      {
+                        "alignItems": "center",
+                        "flexGrow": 1,
+                        "justifyContent": "center",
+                      },
+                      undefined,
+                    ],
+                  ]
+                }
+                testID="icon-button"
+              >
+                <Text
+                  accessibilityElementsHidden={true}
+                  importantForAccessibility="no-hide-descendants"
+                  pointerEvents="none"
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                      },
+                      {
+                        "color": "rgba(73, 69, 79, 1)",
+                        "fontSize": 24,
+                      },
+                    ]
+                  }
+                >
+                  □
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
       <View
         style={
           {
@@ -2409,6 +3022,7 @@ exports[`SignInScreen shows loading state on submit 1`] = `
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -2473,6 +3087,7 @@ exports[`SignInScreen shows loading state on submit 1`] = `
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -3103,6 +3718,157 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
       <View
         style={
           {
+            "alignItems": "flex-end",
+            "marginBottom": 0,
+            "marginRight": 8,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "flexDirection": "column",
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": undefined,
+              }
+            }
+          >
+            Light
+          </Text>
+          <View
+            collapsable={false}
+            style={
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 20,
+                "height": 40,
+                "margin": 6,
+                "shadowColor": "#000",
+                "shadowOffset": {
+                  "height": 0,
+                  "width": 0,
+                },
+                "shadowOpacity": 0,
+                "shadowRadius": 0,
+                "width": 40,
+              }
+            }
+            testID="icon-button-container-outer-layer"
+          >
+            <View
+              collapsable={false}
+              style={
+                {
+                  "backgroundColor": "transparent",
+                  "borderColor": "rgba(121, 116, 126, 1)",
+                  "borderRadius": 20,
+                  "borderWidth": 0,
+                  "elevation": 0,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "shadowColor": "#000",
+                  "shadowOffset": {
+                    "height": 0,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 0,
+                  "shadowRadius": 0,
+                }
+              }
+              testID="icon-button-container"
+            >
+              <View
+                accessibilityComponentType="button"
+                accessibilityLabel="Switch to dark mode"
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": false,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityTraits="button"
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                centered={true}
+                collapsable={false}
+                focusable={true}
+                hitSlop={
+                  {
+                    "bottom": 6,
+                    "left": 6,
+                    "right": 6,
+                    "top": 6,
+                  }
+                }
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    {
+                      "overflow": "hidden",
+                    },
+                    [
+                      {
+                        "alignItems": "center",
+                        "flexGrow": 1,
+                        "justifyContent": "center",
+                      },
+                      undefined,
+                    ],
+                  ]
+                }
+                testID="icon-button"
+              >
+                <Text
+                  accessibilityElementsHidden={true}
+                  importantForAccessibility="no-hide-descendants"
+                  pointerEvents="none"
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "backgroundColor": "transparent",
+                      },
+                      {
+                        "color": "rgba(73, 69, 79, 1)",
+                        "fontSize": 24,
+                      },
+                    ]
+                  }
+                >
+                  □
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          {
             "flexDirection": "row",
             "justifyContent": "space-around",
             "padding": 16,
@@ -3167,6 +3933,7 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -3231,6 +3998,7 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
                   "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
+                  "lineHeight": 24,
                 }
               }
             >
@@ -3877,6 +4645,7 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
                       "color": "#ffffff",
                       "fontSize": 16,
                       "fontWeight": "600",
+                      "lineHeight": 24,
                     }
                   }
                 >

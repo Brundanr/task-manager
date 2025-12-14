@@ -2,17 +2,16 @@ import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text } from 'react-native-paper';
 import { spacing, colors } from '../theme';
-import { useTheme } from 'react-native-paper';
 import { useLocalization } from '../localization/LocalizationProvider';
+import { useThemeMode } from '../context/ThemeContext';
 
 export const LoadingScreen: React.FC = () => {
   const { t } = useLocalization();
-  const theme = useTheme();
-  
+  const { theme } = useThemeMode();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: theme.colors.background}]}>
       <ActivityIndicator size="large" color={theme.colors.primary} />
-      <Text style={styles.text}>{t('common.loading')}</Text>
+      <Text style={[styles.text, {color: theme.colors.text}]}>{t('common.loading')}</Text>
     </View>
   );
 };

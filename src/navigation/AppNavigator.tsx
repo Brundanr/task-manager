@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, Theme as NavigationTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useAuth } from '../context/AuthContext';
@@ -12,37 +12,36 @@ import { TasksListScreen } from '../screens/TasksListScreen';
 import { TaskDetailsScreen } from '../screens/TaskDetailsScreen';
 import { SignOutScreen } from '../screens/SignOutScreen';
 import { ErrorLogsScreen } from '../screens/ErrorLogsScreen';
+import { useThemeMode } from '../context/ThemeContext';
 import i18n from '../i18n';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const TasksStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="TasksList"
-        component={TasksListScreen}
-        options={{ title: i18n.t('tasks.title') }}
-      />
-      <Stack.Screen
-        name="TaskDetails"
-        component={TaskDetailsScreen}
-        options={{ title: i18n.t('tasks.editTask') }}
-      />
-    </Stack.Navigator>
-  );
-};
+const TasksStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="TasksList"
+      component={TasksListScreen}
+      options={{ title: i18n.t('tasks.title') }}
+    />
+    <Stack.Screen
+      name="TaskDetails"
+      component={TaskDetailsScreen}
+      options={{ title: i18n.t('tasks.editTask') }}
+    />
+  </Stack.Navigator>
+);
 
 const AuthenticatedTabs = () => {
   const { user } = useAuth();
+  const { theme, mode } = useThemeMode();
 
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName: string;
-
           if (route.name === 'Tasks') {
             iconName = 'check-circle';
           } else if (route.name === 'Errors') {
@@ -50,15 +49,26 @@ const AuthenticatedTabs = () => {
           } else {
             iconName = 'logout';
           }
-
-          // Ensure size and color are valid
           const iconSize = typeof size === 'number' ? size : 24;
-          const iconColor = typeof color === 'string' ? color : '#6200ee';
-
+          const iconColor = typeof color === 'string' ? color : theme.colors.primary;
           return <TabIcon name={iconName} size={iconSize} color={iconColor} />;
         },
-        tabBarActiveTintColor: '#6200ee',
-        tabBarInactiveTintColor: 'gray',
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.onSurface || '#999',
+        tabBarStyle: {
+          backgroundColor: theme.colors.surface,
+          borderTopColor: theme.colors.outline || '#ccc',
+        },
+        headerStyle: {
+          backgroundColor: theme.colors.surface,
+        },
+        headerTintColor: theme.colors.text,
+        headerTitleStyle: {
+          color: theme.colors.text,
+        },
+        tabBarLabelStyle: {
+          color: theme.colors.text,
+        },
       })}
     >
       <Tab.Screen
@@ -82,12 +92,45 @@ const AuthenticatedTabs = () => {
   );
 };
 
-const SignOutPlaceholder: React.FC = () => {
-  const { signOut } = useAuth();
-  React.useEffect(() => {
-    signOut();
-  }, [signOut]);
-  return null;
+// Wrapper component to safely use theme hook for NavigationContainer
+const NavigationContainerWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { theme, mode } = useThemeMode();
+
+  const navigationTheme: NavigationTheme = {
+    dark: mode === 'dark',
+    colors: {
+      primary: theme.colors.primary,
+      background: theme.colors.background,
+      card: theme.colors.surface,
+      text: theme.colors.text,
+      border: theme.colors.outline || '#ccc',
+      notification: theme.colors.error,
+    },
+    fonts: {
+      regular: {
+        fontFamily: 'System',
+        fontWeight: '400' as const,
+      },
+      medium: {
+        fontFamily: 'System',
+        fontWeight: '500' as const,
+      },
+      bold: {
+        fontFamily: 'System',
+        fontWeight: '700' as const,
+      },
+      heavy: {
+        fontFamily: 'System',
+        fontWeight: '800' as const,
+      },
+    },
+  };
+
+  return (
+    <NavigationContainer theme={navigationTheme}>
+      {children}
+    </NavigationContainer>
+  );
 };
 
 export const AppNavigator: React.FC = () => {
@@ -98,7 +141,7 @@ export const AppNavigator: React.FC = () => {
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainerWrapper>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!isAuthenticated ? (
           <Stack.Screen name="SignIn" component={SignInScreen} />
@@ -113,6 +156,6 @@ export const AppNavigator: React.FC = () => {
           </>
         )}
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainerWrapper>
   );
 };
