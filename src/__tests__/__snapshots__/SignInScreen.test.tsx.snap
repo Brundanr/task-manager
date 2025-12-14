@@ -940,6 +940,32 @@ exports[`SignInScreen renders initial state correctly (English) 1`] = `
               </View>
             </View>
           </View>
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                },
+                {
+                  "writingDirection": "ltr",
+                },
+                {
+                  "color": "#666",
+                  "fontSize": 12,
+                  "marginTop": 16,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Try: admin@example.com / admin123 or member@example.com / member123
+          </Text>
         </View>
       </View>
     </View>
@@ -1887,6 +1913,32 @@ exports[`SignInScreen renders initial state correctly (Spanish) 1`] = `
               </View>
             </View>
           </View>
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                },
+                {
+                  "writingDirection": "ltr",
+                },
+                {
+                  "color": "#666",
+                  "fontSize": 12,
+                  "marginTop": 16,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Try: admin@example.com / admin123 or member@example.com / member123
+          </Text>
         </View>
       </View>
     </View>
@@ -2860,6 +2912,32 @@ exports[`SignInScreen shows backend error returned from signIn 1`] = `
               </View>
             </View>
           </View>
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                },
+                {
+                  "writingDirection": "ltr",
+                },
+                {
+                  "color": "#666",
+                  "fontSize": 12,
+                  "marginTop": 16,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Try: admin@example.com / admin123 or member@example.com / member123
+          </Text>
         </View>
       </View>
     </View>
@@ -3800,6 +3878,32 @@ exports[`SignInScreen shows loading state on submit 1`] = `
               </View>
             </View>
           </View>
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                },
+                {
+                  "writingDirection": "ltr",
+                },
+                {
+                  "color": "#666",
+                  "fontSize": 12,
+                  "marginTop": 16,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Try: admin@example.com / admin123 or member@example.com / member123
+          </Text>
         </View>
       </View>
     </View>
@@ -4799,6 +4903,32 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
               </View>
             </View>
           </View>
+          <Text
+            style={
+              [
+                {
+                  "textAlign": "left",
+                },
+                {
+                  "color": "rgba(28, 27, 31, 1)",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                },
+                {
+                  "writingDirection": "ltr",
+                },
+                {
+                  "color": "#666",
+                  "fontSize": 12,
+                  "marginTop": 16,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Try: admin@example.com / admin123 or member@example.com / member123
+          </Text>
         </View>
       </View>
     </View>
