@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/Button';
@@ -7,8 +7,10 @@ import { Task, UserRole } from '../types';
 import { useFocusEffect } from '@react-navigation/native';
 import i18n from '../i18n';
 import { useThemeMode } from '../context/ThemeContext';
+import { borderRadius, elevation, lightTheme } from '../theme';
 import { ThemeToggleButton } from '../components/ThemeToggleButton';
 import { FeatureFlagsManager } from '../components/FeatureFlagsManager';
+import { spacing } from '../theme';
 
 export const SignOutScreen = () => {
   const { signOut, user } = useAuth();
@@ -16,10 +18,10 @@ export const SignOutScreen = () => {
   const { theme } = useThemeMode();
 
   useFocusEffect(
-      useCallback(() => {
-        refreshTasks();
-      }, [refreshTasks])
-    );
+    useCallback(() => {
+      refreshTasks();
+    }, [refreshTasks])
+  );
 
   const getTaskCounts = (tasks: Task[]): { completed: number; incomplete: number } => {
     const completed = tasks.filter(task => task.completed).length;
@@ -41,36 +43,39 @@ export const SignOutScreen = () => {
         </Text>
         <View style={[styles.divider, dynamicStyles.divider]} />
         <Text style={[styles.text, dynamicStyles.text]}>
-          {i18n.t('tasks.totalCount', { count: String(tasks.length) }) || `Total Tasks: ${tasks.length}`}
+          {i18n.t('tasks.totalCount', { count: String(tasks.length) }) ||
+            `Total Tasks: ${tasks.length}`}
         </Text>
         <Text style={[styles.text, dynamicStyles.completedText]}>
-          {i18n.t('tasks.completedCount', { count: String(getTaskCounts(tasks).completed) }) || `Completed: ${getTaskCounts(tasks).completed}`}
+          {i18n.t('tasks.completedCount', { count: String(getTaskCounts(tasks).completed) }) ||
+            `Completed: ${getTaskCounts(tasks).completed}`}
         </Text>
         <Text style={[styles.text, dynamicStyles.incompleteText]}>
-          {i18n.t('tasks.incompleteCount', { count: String(getTaskCounts(tasks).incomplete) }) || `Incomplete: ${getTaskCounts(tasks).incomplete}`}
+          {i18n.t('tasks.incompleteCount', { count: String(getTaskCounts(tasks).incomplete) }) ||
+            `Incomplete: ${getTaskCounts(tasks).incomplete}`}
         </Text>
       </View>
-      
+
       {/* Feature Flags Manager - Admin Only */}
       {user?.role === UserRole.ADMIN && (
         <View style={styles.section}>
           <FeatureFlagsManager />
         </View>
       )}
-      
+
       <View style={styles.button}>
         <Button
-            title={i18n.t('auth.signOut')}
-            onPress={signOut}
-            accessibilityLabel={i18n.t('auth.signOut')}
-            accessibilityHint="Sign out to your account"
+          title={i18n.t('auth.signOut')}
+          onPress={signOut}
+          accessibilityLabel={i18n.t('auth.signOut')}
+          accessibilityHint="Sign out to your account"
         />
       </View>
     </ScrollView>
   );
 };
 
-const getDynamicStyles = (theme: any) => ({
+const getDynamicStyles = (theme: typeof lightTheme) => ({
   scrollView: {
     backgroundColor: theme.colors.background,
   },
@@ -99,53 +104,45 @@ const getDynamicStyles = (theme: any) => ({
 });
 
 const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
-  themeToggleContainer: {
-    alignItems: 'flex-end',
-    padding: 12,
-    borderBottomLeftRadius: 16,
-    borderBottomRightRadius: 16,
-    marginBottom: 16,
-  },
-  statsContainer: {
-    borderRadius: 20,
-    marginHorizontal: 16,
-    marginTop: 8,
-    marginBottom: 16,
-    padding: 20,
-    elevation: 2,
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 2 },
-  },
-  greetingText: {
-    fontWeight: 'bold',
-    fontSize: 22,
-    marginBottom: 8,
-    textAlign: 'center',
+  button: {
+    padding: spacing.md,
   },
   divider: {
     height: 1,
-    marginVertical: 8,
+    marginVertical: spacing.sm,
+  },
+  greetingText: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: spacing.sm,
+    textAlign: 'center',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  section: {
+    marginVertical: spacing.md,
+  },
+  statsContainer: {
+    borderRadius: 20,
+    elevation: elevation.low,
+    marginBottom: spacing.md,
+    marginHorizontal: spacing.md,
+    marginTop: spacing.sm,
+    padding: spacing.md,
+    shadowOffset: { width: 0, height: spacing.sm },
+    shadowOpacity: 0.08,
+    shadowRadius: spacing.sm,
   },
   text: {
     fontSize: 18,
-    margin: 16,
+    margin: spacing.md,
   },
-  completedText: {
-    fontSize: 18,
-    margin: 16,
-  },
-  incompleteText: {
-    fontSize: 18,
-    margin: 16,
-  },
-  button: {
-    padding: 16,
-  },
-  section: {
-    marginVertical: 16,
+  themeToggleContainer: {
+    alignItems: 'flex-end',
+    borderBottomLeftRadius: borderRadius.xl,
+    borderBottomRightRadius: borderRadius.xl,
+    marginBottom: spacing.md,
+    padding: 12,
   },
 });

@@ -4,11 +4,13 @@ import { TextInput, Text, Surface } from 'react-native-paper';
 import { Button } from '../components/Button';
 import { useAuth } from '../context/AuthContext';
 import { useErrorLogger } from '../context/ErrorContext';
-import { useFormValidation, validateEmail, validateRequired } from '../hooks/useFormValidation';
+import { useFormValidation } from '../hooks/useFormValidation';
+import { validateEmail, validateRequired } from '../validators';
 import { useLocalization } from '../localization/LocalizationProvider';
 import i18n from '../i18n';
 import { ThemeToggleButton } from '../components/ThemeToggleButton';
 import { useFeatureFlags } from '../context/FeatureFlagsContext';
+import { spacing, colors, elevation, borderRadius } from '../theme';
 
 export const SignInScreen: React.FC = () => {
   const { signIn } = useAuth();
@@ -134,52 +136,58 @@ export const SignInScreen: React.FC = () => {
 const styles = StyleSheet.create({
   appTitle: {
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: spacing.md,
     textAlign: 'center',
   },
   backendErrorText: {
-    color: '#b00020',
+    color: colors.error,
     fontSize: 14,
-    marginBottom: 16,
+    marginBottom: spacing.md,
     textAlign: 'center',
   },
   button: {
-    marginTop: 8,
+    marginTop: spacing.sm,
   },
   container: {
     flex: 1,
   },
   errorText: {
-    color: '#b00020',
+    color: colors.error,
     fontSize: 12,
-    marginBottom: 8,
-    marginLeft: 12,
+    marginBottom: spacing.sm,
+    marginLeft: spacing.md,
+  },
+  hintText: {
+    color: colors.textSecondary,
+    fontSize: 12,
+    marginTop: spacing.md,
+    textAlign: 'center',
   },
   input: {
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   languageToggle: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 16,
+    padding: spacing.md,
   },
   scrollContent: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: 16,
+    padding: spacing.md,
   },
   surface: {
-    borderRadius: 8,
-    elevation: 4,
-    padding: 24,
+    borderRadius: borderRadius.md,
+    elevation: elevation.medium,
+    padding: spacing.lg,
   },
   themeToggle: {
     alignItems: 'flex-end',
     marginBottom: 0,
-    marginRight: 8,
+    marginRight: spacing.md,
   },
   title: {
-    marginBottom: 24,
+    marginBottom: spacing.lg,
     textAlign: 'center',
   },
 });

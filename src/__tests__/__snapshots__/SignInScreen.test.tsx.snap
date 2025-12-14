@@ -239,7 +239,7 @@ exports[`SignInScreen renders initial state correctly (English) 1`] = `
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -304,7 +304,7 @@ exports[`SignInScreen renders initial state correctly (English) 1`] = `
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -899,7 +899,7 @@ exports[`SignInScreen renders initial state correctly (English) 1`] = `
                 <Text
                   style={
                     {
-                      "color": "#fff",
+                      "color": "#ffffff",
                       "fontSize": 16,
                       "fontWeight": "600",
                       "lineHeight": 24,
@@ -1156,7 +1156,7 @@ exports[`SignInScreen renders initial state correctly (Spanish) 1`] = `
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -1222,7 +1222,7 @@ exports[`SignInScreen renders initial state correctly (Spanish) 1`] = `
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -1817,7 +1817,7 @@ exports[`SignInScreen renders initial state correctly (Spanish) 1`] = `
                 <Text
                   style={
                     {
-                      "color": "#fff",
+                      "color": "#ffffff",
                       "fontSize": 16,
                       "fontWeight": "600",
                       "lineHeight": 24,
@@ -2075,7 +2075,7 @@ exports[`SignInScreen shows backend error returned from signIn 1`] = `
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -2140,7 +2140,7 @@ exports[`SignInScreen shows backend error returned from signIn 1`] = `
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -2761,7 +2761,7 @@ exports[`SignInScreen shows backend error returned from signIn 1`] = `
                 <Text
                   style={
                     {
-                      "color": "#fff",
+                      "color": "#ffffff",
                       "fontSize": 16,
                       "fontWeight": "600",
                       "lineHeight": 24,
@@ -3019,7 +3019,7 @@ exports[`SignInScreen shows loading state on submit 1`] = `
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -3084,7 +3084,7 @@ exports[`SignInScreen shows loading state on submit 1`] = `
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -3678,7 +3678,7 @@ exports[`SignInScreen shows loading state on submit 1`] = `
                 }
               >
                 <ActivityIndicator
-                  color="#fff"
+                  color="#ffffff"
                   testID="ActivityIndicator"
                 />
               </View>
@@ -3930,7 +3930,7 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -3995,7 +3995,7 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
             <Text
               style={
                 {
-                  "color": "#fff",
+                  "color": "#ffffff",
                   "fontSize": 16,
                   "fontWeight": "600",
                   "lineHeight": 24,
@@ -4642,7 +4642,7 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
                 <Text
                   style={
                     {
-                      "color": "#fff",
+                      "color": "#ffffff",
                       "fontSize": 16,
                       "fontWeight": "600",
                       "lineHeight": 24,
