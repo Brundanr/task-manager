@@ -68,7 +68,7 @@ export const Button: React.FC<ButtonProps> = ({
   const buttonContent = (
     <View style={buttonStyle}>
       {loading ? (
-        <ActivityIndicator color={variant === 'outlined' ? theme.colors.primary : colors.white} />
+        <ActivityIndicator testID="ActivityIndicator" color={variant === 'outlined' ? theme.colors.primary : colors.white} />
       ) : (
         <Text style={textStyle}>
           {title}
