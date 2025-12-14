@@ -1,7 +1,7 @@
 import { FeatureFlags, FeatureFlagsConfig, FeatureFlagKey } from '../types';
 import { StorageService } from '../utills/storage';
+import { StorageItemsEnum } from '../constants/StorageItemsEnum';
 
-const STORAGE_KEY = 'feature_flags';
 const DEFAULT_FLAGS: FeatureFlags = {
   theme: true,
   language: true,
@@ -19,8 +19,10 @@ export class FeatureFlagsService {
   // Initialize feature flags from storage or use defaults
   static async initialize(): Promise<FeatureFlags> {
     try {
-      const stored = await StorageService.getItem<FeatureFlagsConfig>(STORAGE_KEY);
-      
+      const stored = await StorageService.getItem<FeatureFlagsConfig>(
+        StorageItemsEnum.FEATURE_FLAGS
+      );
+
       if (stored && stored.flags) {
         // Merge with defaults to ensure all flags are present
         this.config = {
@@ -102,7 +104,7 @@ export class FeatureFlagsService {
   // In a real implementation, this would make an API call
   static async fetchFromRemote(): Promise<FeatureFlags> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise(resolve => setTimeout(resolve, 500));
 
     // Mock remote response - in production, this would be an API call
     const mockRemoteFlags: FeatureFlags = {
@@ -134,7 +136,7 @@ export class FeatureFlagsService {
   // Notify all listeners of flag changes
   private static notifyListeners(): void {
     const flags = this.getFlags();
-    this.listeners.forEach((listener) => {
+    this.listeners.forEach(listener => {
       try {
         listener(flags);
       } catch (error) {
@@ -147,7 +149,7 @@ export class FeatureFlagsService {
   private static async persist(): Promise<void> {
     if (this.config) {
       try {
-        await StorageService.setItem(STORAGE_KEY, this.config);
+        await StorageService.setItem(StorageItemsEnum.FEATURE_FLAGS, this.config);
       } catch (error) {
         console.error('Error persisting feature flags:', error);
       }
@@ -159,4 +161,3 @@ export class FeatureFlagsService {
     return this.getFlag(key);
   }
 }
-

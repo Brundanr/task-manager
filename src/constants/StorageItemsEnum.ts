@@ -4,4 +4,6 @@ export enum StorageItemsEnum {
   TASKS = 'tasks',
   TASK_FILTERS = 'task_filters',
   ERROR_LOGS = 'error_logs',
+  FEATURE_FLAGS = 'feature_flags',
+  THEME_MODE = 'theme_mode',
 }

@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { lightTheme, darkTheme } from '../theme';
 import { StorageService } from '../utills/storage';
+import { StorageItemsEnum } from '../constants/StorageItemsEnum';
 
 export type ThemeMode = 'light' | 'dark';
-const STORAGE_KEY = 'theme_mode';
 
 interface ThemeContextProps {
   mode: ThemeMode;
@@ -24,14 +24,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   useEffect(() => {
     (async () => {
-      const saved = await StorageService.getItem<ThemeMode>(STORAGE_KEY);
+      const saved = await StorageService.getItem<ThemeMode>(StorageItemsEnum.THEME_MODE);
       if (saved && (saved === 'light' || saved === 'dark')) setModeState(saved);
     })();
   }, []);
 
   const setMode = useCallback((newMode: ThemeMode) => {
     setModeState(newMode);
-    StorageService.setItem(STORAGE_KEY, newMode);
+    StorageService.setItem(StorageItemsEnum.THEME_MODE, newMode);
   }, []);
 
   const toggleTheme = useCallback(() => {
