@@ -5,6 +5,7 @@ import { Task, PaginationParams, PaginatedResponse, FilterState } from '../types
 import { Card } from './Card';
 import { Pagination } from './Pagination';
 import { spacing, colors } from '../theme';
+import i18n from '../i18n';
 
 interface TaskListViewProps {
   tasks: Task[];
@@ -57,7 +58,7 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
             onPress={() => onToggleComplete(item.id)}
             accessibilityLabel={item.completed ? 'Mark as incomplete' : 'Mark as complete'}
           >
-            {item.completed ? 'Compleated' : 'Incomplete'}
+            {item.completed ? i18n.t('tasks.completed') : i18n.t('tasks.incomplete')}
           </Chip>
         </View>
         <Text variant="bodyMedium" numberOfLines={2} style={styles.taskDescription}>
@@ -74,11 +75,11 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
   return (
     <View style={styles.container}>
       <Searchbar
-        placeholder={'Search tasks...'}
+        placeholder={i18n.t('tasks.search')}
         onChangeText={onSearch}
         value={searchQuery}
         style={styles.searchbar}
-        accessibilityLabel={'Search tasks...'}
+        accessibilityLabel={i18n.t('tasks.search')}
       />
       <View style={styles.filters}>
         <View style={styles.filterChip}>
@@ -87,7 +88,7 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
             onDismiss={() => onSortMenuToggle(false)}
             anchor={
               <Chip onPress={() => onSortMenuToggle(true)}>
-                {'Sort'}
+                {i18n.t('tasks.sort')}
               </Chip>
             }
           >
@@ -127,7 +128,7 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
             onDismiss={() => onFilterMenuToggle(false)}
             anchor={
               <Chip onPress={() => onFilterMenuToggle(true)}>
-                {'Filter'}
+                {i18n.t('tasks.filter')}
               </Chip>
             }
           >
@@ -136,30 +137,30 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
                 onUpdateFilters({ completed: null });
                 onFilterMenuToggle(false);
               }}
-              title={'All'}
+              title={i18n.t('tasks.all')}
             />
             <Menu.Item
               onPress={() => {
                 onUpdateFilters({ completed: true });
                 onFilterMenuToggle(false);
               }}
-              title={'Completed'}
+              title={i18n.t('tasks.completed')}
             />
             <Menu.Item
               onPress={() => {
                 onUpdateFilters({ completed: false });
                 onFilterMenuToggle(false);
               }}
-              title={'Incomplete'}
+              title={i18n.t('tasks.incomplete')}
             />
           </Menu>
         </View>
       </View>
 
       {loading ? (
-        <Text style={styles.loading}>{'Loading...'}</Text>
+        <Text style={styles.loading}>{i18n.t('common.loading')}</Text>
       ) : tasks.length === 0 ? (
-        <Text style={styles.empty}>{'No tasks found'}</Text>
+        <Text style={styles.empty}>{i18n.t('tasks.noTasks')}</Text>
       ) : (
         <FlatList
           data={tasks}
@@ -180,7 +181,7 @@ export const TaskListView: React.FC<TaskListViewProps> = ({
         style={styles.fab}
         onPress={onAddTask}
         icon="plus"
-        accessibilityLabel={'Add Task'}
+        accessibilityLabel={i18n.t('tasks.addTask')}
         accessibilityHint="Add a new task"
       />
     </View>

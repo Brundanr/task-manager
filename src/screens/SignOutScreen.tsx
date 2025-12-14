@@ -5,6 +5,7 @@ import { Button } from '../components/Button';
 import { useTasks } from '../hooks/useTasks';
 import { Task } from '../types';
 import { useFocusEffect } from '@react-navigation/native';
+import i18n from '../i18n';
 import { spacing } from '../theme';
 
 export const SignOutScreen = () => {
@@ -31,9 +32,9 @@ export const SignOutScreen = () => {
       <Text style={styles.text}>Incompleted Count: {getTaskCounts(tasks).incomplete}</Text>
       <View style={styles.button}>
         <Button
-            title={'Sign Out'}
+            title={i18n.t('auth.signOut')}
             onPress={signOut}
-            accessibilityLabel={'Sign out Button'}
+            accessibilityLabel={i18n.t('auth.signOut')}
             accessibilityHint="Sign out to your account"
         />
       </View>

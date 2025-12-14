@@ -4,6 +4,7 @@ import { Text, Button, Surface } from 'react-native-paper';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useErrorLogger } from '../context/ErrorContext';
 import { useAuth } from '../context/AuthContext';
+import i18n from '../i18n';
 import { spacing, colors, elevation, borderRadius } from '../theme';
 import { ErrorScreenParams } from '../types';
 
@@ -33,7 +34,7 @@ export const ErrorScreen: React.FC = () => {
     <View style={styles.container}>
       <Surface style={styles.surface}>
         <Text variant="headlineMedium" style={styles.title}>
-          {'Error'}
+          {i18n.t('common.error')}
         </Text>
         <Text variant="bodyLarge" style={styles.message}>
           {error || 'An unexpected error occurred'}
@@ -49,7 +50,7 @@ export const ErrorScreen: React.FC = () => {
           style={styles.button}
           accessibilityLabel="Go back"
         >
-          {'OK'}
+          {i18n.t('common.ok')}
         </Button>
       </Surface>
     </View>

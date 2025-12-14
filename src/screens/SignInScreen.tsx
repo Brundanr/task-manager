@@ -4,7 +4,10 @@ import { TextInput, Text, Surface } from 'react-native-paper';
 import { Button } from '../components/Button';
 import { useAuth } from '../context/AuthContext';
 import { useErrorLogger } from '../context/ErrorContext';
-import { useFormValidation, validateEmail, validateRequired } from '../hooks/useFormValidation';
+import { useFormValidation } from '../hooks/useFormValidation';
+import { validateEmail, validateRequired } from '../validators';
+import { useLocalization } from '../localization/LocalizationProvider';
+import i18n from '../i18n';
 import { spacing, colors, elevation, borderRadius } from '../theme';
 
 export const SignInScreen: React.FC = () => {
@@ -12,6 +15,7 @@ export const SignInScreen: React.FC = () => {
   const { logError } = useErrorLogger();
   const [backendError, setBackendError] = useState<string>('');
   const [loading, setLoading] = useState(false);
+  const { locale, setLocale } = useLocalization();
 
   const validate = useCallback((values: { email: string; password: string }) => {
     const errors: Record<string, string> = {};
@@ -55,22 +59,36 @@ export const SignInScreen: React.FC = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+
       <ScrollView contentContainerStyle={styles.scrollContent}>
+      {/* Language Toggle Buttons */}
+          <View style={styles.languageToggle}>
+            <Button
+              title="English"
+              onPress={() => setLocale('en')}
+              disabled={locale === 'en'}
+            />
+            <Button
+              title="Español"
+              onPress={() => setLocale('es')}
+              disabled={locale === 'es'}
+            />
+          </View>
         <Surface style={styles.surface}>
           <Text variant="headlineMedium" style={styles.title}>
-            {'Sign In'}
+            {i18n.t('auth.signIn')}
           </Text>
 
           <TextInput
-            label={'Email'}
+            label={i18n.t('auth.email')}
             value={values.email}
             onChangeText={(text) => handleChange('email', text)}
             onBlur={() => handleBlur('email')}
             error={!!(touched.email && errors.email)}
             keyboardType="email-address"
             autoCapitalize="none"
-            accessibilityLabel={'Email'}
-            accessibilityHint="Enter your email address"
+            accessibilityLabel={i18n.t('auth.email')}
+            accessibilityHint={'Enter your email address'}
             style={styles.input}
           />
           {touched.email && errors.email && (
@@ -78,15 +96,15 @@ export const SignInScreen: React.FC = () => {
           )}
 
           <TextInput
-            label={'Password'}
+            label={i18n.t('auth.password')}
             value={values.password}
             onChangeText={(text) => handleChange('password', text)}
             onBlur={() => handleBlur('password')}
             error={!!(touched.password && errors.password)}
             secureTextEntry
             autoCapitalize="none"
-            accessibilityLabel={'Password'}
-            accessibilityHint="Enter your password"
+            accessibilityLabel={i18n.t('auth.password')}
+            accessibilityHint={'Enter your password'}
             style={styles.input}
           />
           {touched.password && errors.password && (
@@ -99,12 +117,12 @@ export const SignInScreen: React.FC = () => {
 
           <View style={styles.button}>
             <Button
-              title={'Sign In'}
+              title={i18n.t('auth.signInButton')}
               onPress={handleSubmit}
               loading={loading}
               disabled={loading}
-              accessibilityLabel={'Sign In Button'}
-              accessibilityHint="Sign in to your account"
+              accessibilityLabel={i18n.t('auth.signInButton')}
+              accessibilityHint={'Sign in to your account'}
             />
           </View>
         </Surface>
@@ -121,6 +139,11 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     padding: spacing.md,
+  },
+  languageToggle: { 
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 16 
   },
   surface: {
     padding: spacing.lg,

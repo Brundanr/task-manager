@@ -1,0 +1,57 @@
+{
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "signInButton": "Sign In",
+    "invalidCredentials": "Invalid email or password",
+    "signInSuccess": "Signed in successfully"
+  },
+  "tasks": {
+    "title": "Tasks",
+    "addTask": "Add Task",
+    "editTask": "Edit Task",
+    "deleteTask": "Delete Task",
+    "taskTitle": "Title",
+    "taskDescription": "Description",
+    "completed": "Completed",
+    "incomplete": "Incomplete",
+    "noTasks": "No tasks found",
+    "markComplete": "Mark as Complete",
+    "markIncomplete": "Mark as Incomplete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "search": "Search tasks...",
+    "filter": "Filter",
+    "sort": "Sort",
+    "all": "All",
+    "page": "Page",
+    "of": "of"
+  },
+  "errors": {
+    "title": "Errors",
+    "noErrors": "No errors logged",
+    "errorDetails": "Error Details",
+    "message": "Message",
+    "statusCode": "Status Code",
+    "timestamp": "Timestamp",
+    "userId": "User ID"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "ok": "OK",
+    "required": "This field is required",
+    "invalidEmail": "Invalid email format"
+  },
+  "validation": {
+    "titleRequired": "Title is required",
+    "descriptionRequired": "Description is required",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "emailInvalid": "Please enter a valid email address"
+  }
+}

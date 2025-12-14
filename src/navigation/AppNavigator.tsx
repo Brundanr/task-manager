@@ -12,6 +12,7 @@ import { TasksListScreen } from '../screens/TasksListScreen';
 import { TaskDetailsScreen } from '../screens/TaskDetailsScreen';
 import { SignOutScreen } from '../screens/SignOutScreen';
 import { ErrorLogsScreen } from '../screens/ErrorLogsScreen';
+import i18n from '../i18n';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,10 +23,12 @@ const TasksStack = () => {
       <Stack.Screen
         name="TasksList"
         component={TasksListScreen}
+        options={{ title: i18n.t('tasks.title') }}
       />
       <Stack.Screen
         name="TaskDetails"
         component={TaskDetailsScreen}
+        options={{ title: i18n.t('tasks.editTask') }}
       />
     </Stack.Navigator>
   );
@@ -37,7 +40,23 @@ const AuthenticatedTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: () => null,
+        tabBarIcon: ({ color, size }) => {
+          let iconName: string;
+
+          if (route.name === 'Tasks') {
+            iconName = 'check-circle';
+          } else if (route.name === 'Errors') {
+            iconName = 'alert-circle';
+          } else {
+            iconName = 'logout';
+          }
+
+          // Ensure size and color are valid
+          const iconSize = typeof size === 'number' ? size : 24;
+          const iconColor = typeof color === 'string' ? color : '#6200ee';
+
+          return <TabIcon name={iconName} size={iconSize} color={iconColor} />;
+        },
         tabBarActiveTintColor: '#6200ee',
         tabBarInactiveTintColor: 'gray',
       })}
@@ -45,17 +64,19 @@ const AuthenticatedTabs = () => {
       <Tab.Screen
         name="Tasks"
         component={TasksStack}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, title: i18n.t('tasks.title') }}
       />
       {user?.role === UserRole.ADMIN && (
         <Tab.Screen
           name="Errors"
           component={ErrorLogsScreen}
+          options={{ title: i18n.t('errors.title') }}
         />
       )}
       <Tab.Screen
         name="SignOut"
         component={SignOutScreen}
+        options={{ title: i18n.t('auth.signOut') }}
       />
     </Tab.Navigator>
   );
@@ -87,7 +108,7 @@ export const AppNavigator: React.FC = () => {
             <Stack.Screen
               name="Error"
               component={ErrorScreen}
-              options={{ presentation: 'modal' }}
+              options={{ presentation: 'modal', title: i18n.t('common.error') }}
             />
           </>
         )}

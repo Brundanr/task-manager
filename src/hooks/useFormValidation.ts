@@ -66,23 +66,3 @@ export const useFormValidation = <T extends Record<string, string>>(
     setValues,
   };
 };
-
-// Validation helpers
-export const validateEmail = (email: string): string | undefined => {
-  if (!email) {
-    return 'Email is required';
-  }
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return 'Invalid email address';
-  }
-  return undefined;
-};
-
-export const validateRequired = (value: string, fieldName: string): string | undefined => {
-  if (!value || value.trim() === '') {
-    return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
-  }
-  return undefined;
-};
-

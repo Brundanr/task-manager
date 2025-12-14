@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { PaginationParams, PaginatedResponse } from '../types';
 import { spacing } from '../theme';
+import i18n from '../i18n';
 
 interface PaginationProps {
   pagination: PaginationParams;
@@ -40,7 +41,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         </Button>
       </View>
       <Text style={styles.pageText}>
-        {'Page'} {pagination.page} {'of'} {paginatedData.totalPages}
+      {i18n.t('tasks.page')} {pagination.page} {i18n.t('tasks.of')} {paginatedData.totalPages}
       </Text>
       <View style={styles.paginationButton}>
         <Button

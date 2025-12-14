@@ -1,0 +1,57 @@
+{
+  "auth": {
+    "signIn": "Iniciar Sesión",
+    "signOut": "Cerrar Sesión",
+    "email": "Correo Electrónico",
+    "password": "Contraseña",
+    "signInButton": "Iniciar Sesión",
+    "invalidCredentials": "Correo o contraseña inválidos",
+    "signInSuccess": "Sesión iniciada correctamente"
+  },
+  "tasks": {
+    "title": "Tareas",
+    "addTask": "Agregar Tarea",
+    "editTask": "Editar Tarea",
+    "deleteTask": "Eliminar Tarea",
+    "taskTitle": "Título",
+    "taskDescription": "Descripción",
+    "completed": "Completada",
+    "incomplete": "Incompleta",
+    "noTasks": "No se encontraron tareas",
+    "markComplete": "Marcar como Completada",
+    "markIncomplete": "Marcar como Incompleta",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "search": "Buscar tareas...",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "all": "Todo",
+    "page": "Página",
+    "of": "de"
+  },
+  "errors": {
+    "title": "Errores",
+    "noErrors": "No hay errores registrados",
+    "errorDetails": "Detalles del Error",
+    "message": "Mensaje",
+    "statusCode": "Código de Estado",
+    "timestamp": "Fecha y Hora",
+    "userId": "ID de Usuario"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "ok": "OK",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Formato de correo inválido"
+  },
+  "validation": {
+    "titleRequired": "El título es obligatorio",
+    "descriptionRequired": "La descripción es obligatoria",
+    "emailRequired": "El correo es obligatorio",
+    "passwordRequired": "La contraseña es obligatoria",
+    "emailInvalid": "Por favor ingrese un correo válido"
+  }
+}
