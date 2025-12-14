@@ -1,16 +1,11 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
-import { Text, FAB, Chip, Menu, Button, Searchbar } from 'react-native-paper';
+import React, { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { useAuth } from '../context/AuthContext';
 import { useTasks } from '../hooks/useTasks';
-import { Task } from '../types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Card } from '../components/Card';
-import i18n from '../i18n';
-import { ThemeToggleButton } from '../components/ThemeToggleButton';
 import { useThemeMode } from '../context/ThemeContext';
-import { typography } from '../theme';
+import { TaskListView } from '../components/TaskListView';
+import { Task } from '../types';
 
 type TasksListNavigationProp = NativeStackNavigationProp<{
   TaskDetails: { taskId: string | null };
@@ -33,8 +28,6 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
   const [sortMenuVisible, setSortMenuVisible] = useState(false);
   const [filterMenuVisible, setFilterMenuVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState(filters.search);
-
-  const { theme } = useThemeMode();
 
   useFocusEffect(
     useCallback(() => {
@@ -60,246 +53,28 @@ export const TasksListScreen: React.FC<{ navigation: TasksListNavigationProp }> 
     [toggleTaskCompletion]
   );
 
-  const renderTask = useCallback(
-    ({ item }: { item: Task }) => (
-      <Card
-        onPress={() => handleTaskPress(item)}
-        accessibilityLabel={`${item.title}, ${item.completed ? 'completed' : 'incomplete'}`}
-        accessibilityHint="Double tap to view task details"
-      >
-        <View style={styles.taskHeader}>
-          <Text variant="titleMedium" style={[styles.taskTitle, { color: theme.colors.text }]}>
-            {item.title}
-          </Text>
-          <Chip
-            selected={item.completed}
-            onPress={() => handleToggleComplete(item.id)}
-            accessibilityLabel={item.completed ? 'Mark as incomplete' : 'Mark as complete'}
-          >
-            {item.completed ? i18n.t('tasks.completed') : i18n.t('tasks.incomplete')}
-          </Chip>
-        </View>
-        <Text variant="bodyMedium" numberOfLines={2} style={[styles.taskDescription, { color: theme.colors.onSurface }]}>
-          {item.description}
-        </Text>
-        <Text variant="bodySmall" style={[styles.taskDate, { color: theme.colors.onSurface }]}>
-          {new Date(item.createdAt).toLocaleDateString()}
-        </Text>
-      </Card>
-    ),
-    [handleTaskPress, handleToggleComplete, theme]
-  );
-
-  const renderPagination = useMemo(() => {
-    if (!paginatedData || paginatedData.totalPages <= 1) return null;
-
-    return (
-      <View style={styles.pagination}>
-        <View style={styles.paginationButton}>
-          <Button
-            mode="outlined"
-            onPress={() => changePage(Math.max(1, pagination.page - 1))}
-            disabled={pagination.page === 1}
-          >
-            &lt;
-          </Button>
-        </View>
-        <Text style={[styles.pageText, { color: theme.colors.text }]}>
-          {i18n.t('tasks.page')} {pagination.page} {i18n.t('tasks.of')} {paginatedData.totalPages}
-        </Text>
-        <View style={styles.paginationButton}>
-          <Button
-            mode="outlined"
-            onPress={() => changePage(Math.min(paginatedData.totalPages, pagination.page + 1))}
-            disabled={pagination.page === paginatedData.totalPages}
-          >
-            &gt;
-          </Button>
-        </View>
-      </View>
-    );
-  }, [paginatedData, pagination, changePage]);
-
   const handleSearch = useCallback((query: string) => {
     setSearchQuery(query);
     updateFilters({ search: query });
   }, [updateFilters]);
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 16 }}>
-        <Searchbar
-          placeholder={i18n.t('tasks.search')}
-          onChangeText={handleSearch}
-          value={searchQuery}
-          style={[styles.searchbar, { flex: 1 }]}
-          accessibilityLabel={i18n.t('tasks.search')}
-        />
-        <ThemeToggleButton />
-      </View>
-      <View style={styles.filters}>
-        <View style={styles.filterChip}>
-          <Menu
-            visible={sortMenuVisible}
-            onDismiss={() => setSortMenuVisible(false)}
-            anchor={
-              <Chip onPress={() => setSortMenuVisible(true)}>
-                {i18n.t('tasks.sort')}
-              </Chip>
-            }
-          >
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ sortField: 'title', sortOrder: 'asc' });
-              setSortMenuVisible(false);
-            }}
-            title="Title A-Z"
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ sortField: 'title', sortOrder: 'desc' });
-              setSortMenuVisible(false);
-            }}
-            title="Title Z-A"
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ sortField: 'createdAt', sortOrder: 'desc' });
-              setSortMenuVisible(false);
-            }}
-            title="Newest First"
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ sortField: 'createdAt', sortOrder: 'asc' });
-              setSortMenuVisible(false);
-            }}
-            title="Oldest First"
-          />
-          </Menu>
-        </View>
-        <View style={styles.filterChip}>
-          <Menu
-            visible={filterMenuVisible}
-            onDismiss={() => setFilterMenuVisible(false)}
-            anchor={
-              <Chip onPress={() => setFilterMenuVisible(true)}>
-                {i18n.t('tasks.filter')}
-              </Chip>
-            }
-          >
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ completed: null });
-              setFilterMenuVisible(false);
-            }}
-            title={i18n.t('tasks.all')}
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ completed: true });
-              setFilterMenuVisible(false);
-            }}
-            title={i18n.t('tasks.completed')}
-          />
-          <Menu.Item
-            onPress={() => {
-              updateFilters({ completed: false });
-              setFilterMenuVisible(false);
-            }}
-            title={i18n.t('tasks.incomplete')}
-          />
-          </Menu>
-        </View>
-      </View>
-
-      <Text style={[typography.h1, { color: theme.colors.text, margin: 16 }]}>Task Manager</Text>
-
-      {loading ? (
-        <Text style={[styles.loading, { color: theme.colors.text }]}>{i18n.t('common.loading')}</Text>
-      ) : filteredTasks.length === 0 ? (
-        <Text style={[styles.empty, { color: theme.colors.onSurface }]}>{i18n.t('tasks.noTasks')}</Text>
-      ) : (
-        <FlatList
-          data={filteredTasks}
-          renderItem={renderTask}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.list}
-          accessibilityLabel="Tasks list"
-        />
-      )}
-
-      {renderPagination}
-
-      <FAB
-        style={styles.fab}
-        onPress={handleAddTask}
-        icon="plus"
-        accessibilityLabel={i18n.t('tasks.addTask')}
-        accessibilityHint="Add a new task"
-      />
-    </View>
+    <TaskListView
+      tasks={filteredTasks}
+      loading={loading}
+      pagination={pagination}
+      paginatedData={paginatedData}
+      searchQuery={searchQuery}
+      sortMenuVisible={sortMenuVisible}
+      filterMenuVisible={filterMenuVisible}
+      onTaskPress={handleTaskPress}
+      onToggleComplete={handleToggleComplete}
+      onAddTask={handleAddTask}
+      onSearch={handleSearch}
+      onPageChange={changePage}
+      onUpdateFilters={updateFilters}
+      onSortMenuToggle={setSortMenuVisible}
+      onFilterMenuToggle={setFilterMenuVisible}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  searchbar: {
-    margin: 16,
-    marginBottom: 8,
-  },
-  filters: {
-    flexDirection: 'row',
-    padding: 16,
-    paddingTop: 8,
-  },
-  list: {
-    paddingBottom: 80,
-  },
-  taskHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  taskTitle: {
-    flex: 1,
-    marginRight: 8,
-  },
-  taskDescription: {
-    marginBottom: 8,
-  },
-  taskDate: {
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
-  },
-  loading: {
-    textAlign: 'center',
-    marginTop: 32,
-  },
-  empty: {
-    textAlign: 'center',
-    marginTop: 32,
-  },
-  pagination: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  filterChip: {
-    marginRight: 8,
-  },
-  pageText: {
-    marginHorizontal: 16,
-  },
-  paginationButton: {
-    marginHorizontal: 8,
-  },
-});

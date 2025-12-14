@@ -55,7 +55,7 @@ exports[`Button renders correctly and matches snapshot 1`] = `
     <Text
       style={
         {
-          "color": "#fff",
+          "color": "#ffffff",
           "fontSize": 16,
           "fontWeight": "600",
           "lineHeight": 24,
