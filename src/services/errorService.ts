@@ -1,7 +1,6 @@
 import { ErrorLog } from '../types';
 import { StorageService } from '../utills/storage';
-
-const STORAGE_KEY = 'error_logs';
+import { StorageItemsEnum } from '../constants/StorageItemsEnum';
 
 // Error logging service
 export class ErrorService {
@@ -22,9 +21,9 @@ export class ErrorService {
         stack,
       };
 
-      const logs = (await StorageService.getItem<ErrorLog[]>(STORAGE_KEY)) || [];
+      const logs = (await StorageService.getItem<ErrorLog[]>(StorageItemsEnum.ERROR_LOGS)) || [];
       logs.push(errorLog);
-      await StorageService.setItem(STORAGE_KEY, logs);
+      await StorageService.setItem(StorageItemsEnum.ERROR_LOGS, logs);
 
       // console.log('Error logged successfully:', errorLog.id);
       return errorLog;
@@ -44,18 +43,12 @@ export class ErrorService {
 
   // Get all error logs (admin only)
   static async getAllErrors(): Promise<ErrorLog[]> {
-    try {
-      const logs = (await StorageService.getItem<ErrorLog[]>(STORAGE_KEY)) || [];
-      // console.log(`Retrieved ${logs.length} error logs from storage`);
-      return logs;
-    } catch (error) {
-      console.error('Failed to retrieve error logs:', error);
-      return [];
-    }
+    const result = await StorageService.getItem<ErrorLog[]>(StorageItemsEnum.ERROR_LOGS);
+    return result || [];
   }
 
   // Clear all error logs
   static async clearErrors(): Promise<void> {
-    await StorageService.removeItem(STORAGE_KEY);
+    await StorageService.removeItem(StorageItemsEnum.ERROR_LOGS);
   }
 }

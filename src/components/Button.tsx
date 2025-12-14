@@ -1,7 +1,16 @@
 import React from 'react';
-import { Platform, TouchableOpacity, TouchableNativeFeedback, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
+import {
+  Platform,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  StyleSheet,
+  View,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { typography } from '../theme';
+import { spacing, borderRadius, colors } from '../theme';
 
 interface ButtonProps {
   title: string;
@@ -37,7 +46,7 @@ export const Button: React.FC<ButtonProps> = ({
   } = {
     ...styles.button,
   };
-  
+
   if (variant === 'primary') {
     buttonStyle.backgroundColor = theme.colors.primary;
   } else if (variant === 'secondary') {
@@ -47,7 +56,7 @@ export const Button: React.FC<ButtonProps> = ({
     buttonStyle.borderWidth = 1;
     buttonStyle.borderColor = theme.colors.primary;
   }
-  
+
   if (disabled) {
     buttonStyle.opacity = 0.5;
   }
@@ -62,21 +71,22 @@ export const Button: React.FC<ButtonProps> = ({
     ...typography.body1,
     ...styles.text,
   };
-  
+
   if (variant === 'outlined') {
     textStyle.color = theme.colors.primary;
   } else if (variant === 'primary' || variant === 'secondary') {
-    textStyle.color = '#fff';
+    textStyle.color = colors.white;
   }
 
   const buttonContent = (
     <View style={buttonStyle}>
       {loading ? (
-        <ActivityIndicator testID="ActivityIndicator" color={variant === 'outlined' ? theme.colors.primary : '#fff'} />
+        <ActivityIndicator
+          testID="ActivityIndicator"
+          color={variant === 'outlined' ? theme.colors.primary : colors.white}
+        />
       ) : (
-        <Text style={textStyle}>
-          {title}
-        </Text>
+        <Text style={textStyle}>{title}</Text>
       )}
     </View>
   );
@@ -112,21 +122,20 @@ export const Button: React.FC<ButtonProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
   button: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
     alignItems: 'center',
+    borderRadius: borderRadius.md,
     justifyContent: 'center',
     minHeight: 48,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: 12,
+  },
+  container: {
+    borderRadius: borderRadius.md,
+    overflow: 'hidden',
   },
   text: {
     fontSize: 16,
     fontWeight: '600',
   },
 });
-

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, ViewStyle } from 'react-native';
 import { Card as PaperCard } from 'react-native-paper';
 import { useThemeMode } from '../context/ThemeContext';
+import { spacing, elevation } from '../theme';
 
 interface CardProps {
   children: React.ReactNode;
@@ -20,7 +21,9 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   const { theme } = useThemeMode();
   // Merge styles properly
-  const cardStyle = style ? { ...styles.card, ...style, backgroundColor: theme.colors.surface } : { ...styles.card, backgroundColor: theme.colors.surface };
+  const cardStyle = style
+    ? { ...styles.card, ...style, backgroundColor: theme.colors.surface }
+    : { ...styles.card, backgroundColor: theme.colors.surface };
 
   return (
     <PaperCard
@@ -39,11 +42,11 @@ export const Card: React.FC<CardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    marginVertical: 8,
-    marginHorizontal: 16,
-    elevation: 2,
+    elevation: elevation.low,
+    marginHorizontal: spacing.md,
+    marginVertical: spacing.sm,
   },
   content: {
-    padding: 16,
+    padding: spacing.md,
   },
 });
