@@ -9,7 +9,7 @@ jest.mock('@react-native-async-storage/async-storage', () =>
 jest.mock('./src/i18n', () => ({
   __esModule: true,
   default: {
-    t: (key) => key,
+    t: (key: string) => key,
     setLocale: jest.fn(),
     locale: 'en',
   },

@@ -8,6 +8,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import i18n from '../i18n';
 import { useThemeMode } from '../context/ThemeContext';
 import { ThemeToggleButton } from '../components/ThemeToggleButton';
+import { spacing } from '../theme';
 
 export const SignOutScreen = () => {
   const { signOut, user } = useAuth();
@@ -48,9 +49,9 @@ export const SignOutScreen = () => {
 const styles = StyleSheet.create({
   text: {
     fontSize: 18,
-    margin: 16,
+    margin: spacing.md,
   },
   button: {
-    padding: 16
+    padding: spacing.md,
   },
 });

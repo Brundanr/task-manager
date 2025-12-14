@@ -1,8 +1,7 @@
 import { FilterState, PaginatedResponse, PaginationParams, Task } from "../types";
 import { createPaginatedResponse, filterItems } from "../utills/generics";
 import { StorageService } from "../utills/storage";
-
-const STORAGE_KEY = 'tasks';
+import { StorageItemsEnum } from "../constants/StorageItemsEnum";
 
 /**
  * Task service for managing tasks locally
@@ -12,7 +11,7 @@ export class TaskService {
    * Get all tasks for a user
    */
   static async getTasks(userId: string): Promise<Task[]> {
-    const tasks = await StorageService.getItem<Task[]>(STORAGE_KEY) || [];
+    const tasks = await StorageService.getItem<Task[]>(StorageItemsEnum.TASKS) || [];
     return tasks.filter((task) => task.userId === userId);
   }
 
@@ -66,7 +65,7 @@ export class TaskService {
    * Get a single task by ID
    */
   static async getTaskById(taskId: string): Promise<Task | null> {
-    const tasks = await StorageService.getItem<Task[]>(STORAGE_KEY) || [];
+    const tasks = await StorageService.getItem<Task[]>(StorageItemsEnum.TASKS) || [];
     return tasks.find((task) => task.id === taskId) || null;
   }
 
@@ -74,7 +73,7 @@ export class TaskService {
    * Create a new task
    */
   static async createTask(task: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>): Promise<Task> {
-    const tasks = await StorageService.getItem<Task[]>(STORAGE_KEY) || [];
+    const tasks = await StorageService.getItem<Task[]>(StorageItemsEnum.TASKS) || [];
     const newTask: Task = {
       ...task,
       id: Date.now().toString(),
@@ -82,7 +81,7 @@ export class TaskService {
       updatedAt: new Date().toISOString(),
     };
     tasks.push(newTask);
-    await StorageService.setItem(STORAGE_KEY, tasks);
+    await StorageService.setItem(StorageItemsEnum.TASKS, tasks);
     return newTask;
   }
 
@@ -90,7 +89,7 @@ export class TaskService {
    * Update a task
    */
   static async updateTask(taskId: string, updates: Partial<Task>): Promise<Task | null> {
-    const tasks = await StorageService.getItem<Task[]>(STORAGE_KEY) || [];
+    const tasks = await StorageService.getItem<Task[]>(StorageItemsEnum.TASKS) || [];
     const index = tasks.findIndex((task) => task.id === taskId);
     
     if (index === -1) {
@@ -103,7 +102,7 @@ export class TaskService {
       updatedAt: new Date().toISOString(),
     };
 
-    await StorageService.setItem(STORAGE_KEY, tasks);
+    await StorageService.setItem(StorageItemsEnum.TASKS, tasks);
     return tasks[index];
   }
 
@@ -111,14 +110,14 @@ export class TaskService {
    * Delete a task
    */
   static async deleteTask(taskId: string): Promise<boolean> {
-    const tasks = await StorageService.getItem<Task[]>(STORAGE_KEY) || [];
+    const tasks = await StorageService.getItem<Task[]>(StorageItemsEnum.TASKS) || [];
     const filteredTasks = tasks.filter((task) => task.id !== taskId);
     
     if (filteredTasks.length === tasks.length) {
       return false; // Task not found
     }
 
-    await StorageService.setItem(STORAGE_KEY, filteredTasks);
+    await StorageService.setItem(StorageItemsEnum.TASKS, filteredTasks);
     return true;
   }
 

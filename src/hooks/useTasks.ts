@@ -2,8 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Task, PaginationParams, PaginatedResponse, FilterState } from '../types';
 import { StorageService } from '../utills/storage';
 import { TaskService } from '../services/taskService';
-
-const FILTER_STORAGE_KEY = 'task_filters';
+import { StorageItemsEnum } from '../constants/StorageItemsEnum';
 
 export const useTasks = (userId: string) => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -20,7 +19,7 @@ export const useTasks = (userId: string) => {
   // Load filters from storage
   useEffect(() => {
     const loadFilters = async () => {
-      const savedFilters = await StorageService.getItem<FilterState>(FILTER_STORAGE_KEY);
+      const savedFilters = await StorageService.getItem<FilterState>(StorageItemsEnum.TASK_FILTERS);
       if (savedFilters) {
         setFilters(savedFilters);
       }
@@ -30,7 +29,7 @@ export const useTasks = (userId: string) => {
 
   // Save filters to storage when they change
   useEffect(() => {
-    StorageService.setItem(FILTER_STORAGE_KEY, filters);
+    StorageService.setItem(StorageItemsEnum.TASK_FILTERS, filters);
   }, [filters]);
 
   // Load tasks

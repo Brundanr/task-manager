@@ -1,6 +1,8 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
 import { useThemeMode } from '../context/ThemeContext';
+import { spacing, colors, typography } from '../theme';
+import i18n from '../i18n';
 
 interface Props {
   children: ReactNode;
@@ -33,7 +35,7 @@ export class ErrorBoundary extends Component<Props, State> {
           <Text style={[styles.title, {color: theme.colors.error}]}>Something went wrong</Text>
           <Text style={[styles.message, {color: theme.colors.text}]}>{this.state.error?.message}</Text>
           <Button
-            title="Reload App"
+            title={i18n.t('common.reload')}
             onPress={() => {
               this.setState({ hasError: false, error: null });
             }}
@@ -51,19 +53,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
+    padding: spacing.md,
+    backgroundColor: colors.white,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    ...typography.h3,
+    marginBottom: spacing.sm,
   },
   message: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 20,
-    textAlign: 'center',
+    ...typography.body2,
+    marginBottom: spacing.md,
   },
 });
 

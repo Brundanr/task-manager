@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Text } from 'react-native-paper';
+import { spacing, colors } from '../theme';
 import { useLocalization } from '../localization/LocalizationProvider';
 import { useThemeMode } from '../context/ThemeContext';
 
@@ -20,11 +21,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
   text: {
-    marginTop: 16,
-    color: '#666',
+    marginTop: spacing.md,
+    color: colors.textSecondary,
   },
 });
-
