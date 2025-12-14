@@ -13,9 +13,11 @@ export const ErrorProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const logError = useCallback(
     async (message: string, statusCode: number, stack?: string) => {
-      // Log errors with statusCode >= 500 (server errors) only when user exists
-      if (statusCode >= 500 && user?.id) {
-        await ErrorService.logError(message, statusCode, user.id, stack);
+      // Log errors with statusCode >= 500 (server errors)
+      // Allow logging even when user is not authenticated (use placeholder)
+      if (statusCode >= 500) {
+        const userId = user?.id || 'unauthenticated';
+        await ErrorService.logError(message, statusCode, userId, stack);
       }
     },
     [user]
