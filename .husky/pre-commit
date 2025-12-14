@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 echo "Running pre-commit hook (lint-staged)…"
+npm run test
 npx lint-staged
 
