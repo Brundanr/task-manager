@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, TouchableOpacity, TouchableNativeFeedback, StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { typography } from '../theme';
+import { spacing, borderRadius, colors } from '../theme';
 
 interface ButtonProps {
   title: string;
@@ -66,13 +67,13 @@ export const Button: React.FC<ButtonProps> = ({
   if (variant === 'outlined') {
     textStyle.color = theme.colors.primary;
   } else if (variant === 'primary' || variant === 'secondary') {
-    textStyle.color = '#fff';
+    textStyle.color = colors.white;
   }
 
   const buttonContent = (
     <View style={buttonStyle}>
       {loading ? (
-        <ActivityIndicator testID="ActivityIndicator" color={variant === 'outlined' ? theme.colors.primary : '#fff'} />
+        <ActivityIndicator testID="ActivityIndicator" color={variant === 'outlined' ? theme.colors.primary : colors.white} />
       ) : (
         <Text style={textStyle}>
           {title}
@@ -113,13 +114,13 @@ export const Button: React.FC<ButtonProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 8,
+    borderRadius: borderRadius.md,
     overflow: 'hidden',
   },
   button: {
     paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
+    paddingHorizontal: spacing.lg,
+    borderRadius: borderRadius.md,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 48,

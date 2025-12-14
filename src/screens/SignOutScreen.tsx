@@ -9,6 +9,7 @@ import i18n from '../i18n';
 import { useThemeMode } from '../context/ThemeContext';
 import { ThemeToggleButton } from '../components/ThemeToggleButton';
 import { FeatureFlagsManager } from '../components/FeatureFlagsManager';
+import { spacing } from '../theme';
 
 export const SignOutScreen = () => {
   const { signOut, user } = useAuth();
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    margin: 16,
+    margin: spacing.md,
   },
   completedText: {
     fontSize: 18,
@@ -143,9 +144,9 @@ const styles = StyleSheet.create({
     margin: 16,
   },
   button: {
-    padding: 16,
+    padding: spacing.md,
   },
   section: {
-    marginVertical: 16,
+    marginVertical: spacing.md,
   },
 });

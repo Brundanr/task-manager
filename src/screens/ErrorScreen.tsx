@@ -7,6 +7,8 @@ import { useAuth } from '../context/AuthContext';
 import i18n from '../i18n';
 import { useThemeMode } from '../context/ThemeContext';
 import { ThemeToggleButton } from '../components/ThemeToggleButton';
+import { spacing, colors, elevation, borderRadius } from '../theme';
+import { ErrorScreenParams } from '../types/error';
 
 export const ErrorScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -14,10 +16,7 @@ export const ErrorScreen: React.FC = () => {
   const { logError } = useErrorLogger();
   const { user } = useAuth();
   const { theme } = useThemeMode();
-  interface ErrorScreenParams {
-    error?: string;
-    statusCode?: number;
-  }
+
   const { error, statusCode } = (route.params as ErrorScreenParams) || {};
 
   useEffect(() => {
@@ -69,29 +68,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
+    padding: spacing.md,
+    backgroundColor: colors.backgroundLight,
   },
   surface: {
-    padding: 24,
-    borderRadius: 8,
-    elevation: 4,
+    padding: spacing.lg,
+    borderRadius: borderRadius.md,
+    elevation: elevation.medium,
     width: '100%',
     maxWidth: 400,
   },
   title: {
-    marginBottom: 16,
+    marginBottom: spacing.md,
     textAlign: 'center',
+    color: colors.error,
   },
   message: {
-    marginBottom: 8,
+    marginBottom: spacing.sm,
     textAlign: 'center',
   },
   statusCode: {
-    marginBottom: 24,
+    marginBottom: spacing.lg,
     textAlign: 'center',
+    color: colors.textSecondary,
   },
   button: {
-    marginTop: 16,
+    marginTop: spacing.md,
   },
 });
 

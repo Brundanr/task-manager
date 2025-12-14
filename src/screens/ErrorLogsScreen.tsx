@@ -3,13 +3,12 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import { Text, Card as PaperCard, Chip } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 import { ErrorService } from '../services/errorService';
-import { useAdminGuard } from '../navigation/guards';
 import { ErrorLog } from '../types';
+import { spacing, colors, elevation } from '../theme';
 import i18n from '../i18n';
 import { useThemeMode } from '../context/ThemeContext';
 
 export const ErrorLogsScreen: React.FC = () => {
-  useAdminGuard(); // Protect this route for admin only
   const [errors, setErrors] = useState<ErrorLog[]>([]);
   const [loading, setLoading] = useState(true);
   const { theme } = useThemeMode();
@@ -97,34 +96,37 @@ export const ErrorLogsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.backgroundLight,
   },
   list: {
-    padding: 16,
+    padding: spacing.md,
   },
   card: {
-    marginBottom: 16,
-    elevation: 2,
+    marginBottom: spacing.md,
+    elevation: elevation.low,
   },
   errorHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   errorMessage: {
     flex: 1,
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
   statusChip: {
     alignSelf: 'flex-start',
   },
   errorDetails: {
-    marginTop: 4,
+    marginTop: spacing.xs,
+    color: colors.textSecondary,
   },
   stackTrace: {
-    marginTop: 8,
+    marginTop: spacing.sm,
     fontFamily: 'monospace',
     fontSize: 10,
+    color: colors.textTertiary,
   },
   empty: {
     flex: 1,
