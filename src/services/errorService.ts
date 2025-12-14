@@ -25,7 +25,7 @@ export class ErrorService {
       logs.push(errorLog);
       await StorageService.setItem(StorageItemsEnum.ERROR_LOGS, logs);
 
-      console.log('Error logged successfully:', errorLog.id);
+      // console.log('Error logged successfully:', errorLog.id);
       return errorLog;
     } catch (error) {
       console.error('Failed to log error:', error);

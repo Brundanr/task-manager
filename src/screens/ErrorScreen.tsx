@@ -18,9 +18,9 @@ export const ErrorScreen: React.FC = () => {
   const { error, statusCode } = (route.params as ErrorScreenParams) || {};
 
   useEffect(() => {
-    // Log errors with statusCode >= 400 (client and server errors)
+    // Log errors with statusCode >= 500 (server errors)
     // Allow logging even when user is not authenticated
-    if (error && statusCode >= 400) {
+    if (error && statusCode >= 500) {
       logError(error, statusCode);
     }
   }, [error, statusCode, logError]);

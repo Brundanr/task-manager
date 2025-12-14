@@ -45,7 +45,8 @@
     "message": "Mensaje",
     "statusCode": "Código de Estado",
     "timestamp": "Fecha y Hora",
-    "userId": "ID de Usuario"
+    "userId": "ID de Usuario",
+    "clearErrors": "Borrar Errores"
   },
   "common": {
     "loading": "Cargando...",

@@ -127,6 +127,10 @@ export const SignInScreen: React.FC = () => {
               accessibilityHint={'Sign in to your account'}
             />
           </View>
+
+          <Text style={styles.hintText}>
+            Try: admin@example.com / admin123 or member@example.com / member123
+          </Text>
         </Surface>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -161,6 +165,12 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     fontSize: 12,
     marginTop: spacing.md,
+    textAlign: 'center',
+  },
+  hintText: {
+    color: '#666',
+    fontSize: 12,
+    marginTop: 16,
     textAlign: 'center',
   },
   input: {

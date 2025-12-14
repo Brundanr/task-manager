@@ -7,6 +7,7 @@ import { ErrorLog } from '../types';
 import { spacing, colors, elevation } from '../theme';
 import i18n from '../i18n';
 import { useThemeMode } from '../context/ThemeContext';
+import { Button } from '../components/Button';
 
 export const ErrorLogsScreen: React.FC = () => {
   const [errors, setErrors] = useState<ErrorLog[]>([]);
@@ -87,6 +88,20 @@ export const ErrorLogsScreen: React.FC = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <View style={styles.header}>
+        {errors.length > 0 && (
+          <Button
+            title={i18n.t('errors.clearErrors')}
+            variant="outlined"
+            onPress={async () => {
+              await ErrorService.clearErrors();
+              setErrors([]);
+            }}
+            accessibilityLabel={i18n.t('errors.clearErrors')}
+          />
+        )}
+      </View>
+
       {errors.length === 0 ? (
         <View style={styles.empty}>
           <Text variant="bodyLarge" style={{ color: theme.colors.text }}>
@@ -134,14 +149,30 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: spacing.sm,
   },
+  header: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingBottom: 8,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
   list: {
     padding: spacing.md,
+  },
+  list: {
+    padding: 16,
   },
   stackTrace: {
     color: colors.textTertiary,
     fontFamily: 'monospace',
     fontSize: 10,
     marginTop: spacing.sm,
+  },
+  stackTrace: {
+    fontFamily: 'monospace',
+    fontSize: 10,
+    marginTop: 8,
   },
   statusChip: {
     alignSelf: 'flex-start',

@@ -73,7 +73,7 @@ describe('ErrorContext', () => {
       expect(ErrorService.logError).not.toHaveBeenCalled();
     });
 
-    it('should not log error when user is null', async () => {
+    it('should log error with unauthenticated userId when user is null', async () => {
       (AuthService.getCurrentUser as jest.Mock).mockResolvedValue(null);
 
       const { result } = renderHook(() => useErrorLogger(), { wrapper });
@@ -87,11 +87,21 @@ describe('ErrorContext', () => {
         expect(result.current).toBeDefined();
       });
 
-      await act(async () => {
-        await result.current.logError('Test error', 500);
-      });
-
-      expect(ErrorService.logError).not.toHaveBeenCalled();
+      // Wait for the error to be logged with unauthenticated userId
+      await waitFor(
+        async () => {
+          await act(async () => {
+            await result.current.logError('Test error', 500);
+          });
+          expect(ErrorService.logError).toHaveBeenCalledWith(
+            'Test error',
+            500,
+            'unauthenticated',
+            undefined
+          );
+        },
+        { timeout: 3000 }
+      );
     });
 
     it('should log error for statusCode 500', async () => {
