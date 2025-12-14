@@ -24,12 +24,41 @@ exports[`SignInScreen renders initial state correctly (English) 1`] = `
     }
   >
     <View>
+      <Text
+        style={
+          [
+            {
+              "textAlign": "left",
+            },
+            {
+              "color": "rgba(28, 27, 31, 1)",
+              "writingDirection": "ltr",
+            },
+            [
+              {
+                "fontFamily": "System",
+                "fontSize": 32,
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 40,
+              },
+              {
+                "fontWeight": "bold",
+                "marginBottom": 16,
+                "textAlign": "center",
+              },
+            ],
+          ]
+        }
+      >
+        app.title
+      </Text>
       <View
         style={
           {
             "alignItems": "flex-end",
             "marginBottom": 0,
-            "marginRight": 8,
+            "marginRight": 16,
           }
         }
       >
@@ -942,12 +971,41 @@ exports[`SignInScreen renders initial state correctly (Spanish) 1`] = `
     }
   >
     <View>
+      <Text
+        style={
+          [
+            {
+              "textAlign": "left",
+            },
+            {
+              "color": "rgba(28, 27, 31, 1)",
+              "writingDirection": "ltr",
+            },
+            [
+              {
+                "fontFamily": "System",
+                "fontSize": 32,
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 40,
+              },
+              {
+                "fontWeight": "bold",
+                "marginBottom": 16,
+                "textAlign": "center",
+              },
+            ],
+          ]
+        }
+      >
+        app.title
+      </Text>
       <View
         style={
           {
             "alignItems": "flex-end",
             "marginBottom": 0,
-            "marginRight": 8,
+            "marginRight": 16,
           }
         }
       >
@@ -1860,12 +1918,41 @@ exports[`SignInScreen shows backend error returned from signIn 1`] = `
     }
   >
     <View>
+      <Text
+        style={
+          [
+            {
+              "textAlign": "left",
+            },
+            {
+              "color": "rgba(28, 27, 31, 1)",
+              "writingDirection": "ltr",
+            },
+            [
+              {
+                "fontFamily": "System",
+                "fontSize": 32,
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 40,
+              },
+              {
+                "fontWeight": "bold",
+                "marginBottom": 16,
+                "textAlign": "center",
+              },
+            ],
+          ]
+        }
+      >
+        app.title
+      </Text>
       <View
         style={
           {
             "alignItems": "flex-end",
             "marginBottom": 0,
-            "marginRight": 8,
+            "marginRight": 16,
           }
         }
       >
@@ -2804,12 +2891,41 @@ exports[`SignInScreen shows loading state on submit 1`] = `
     }
   >
     <View>
+      <Text
+        style={
+          [
+            {
+              "textAlign": "left",
+            },
+            {
+              "color": "rgba(28, 27, 31, 1)",
+              "writingDirection": "ltr",
+            },
+            [
+              {
+                "fontFamily": "System",
+                "fontSize": 32,
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 40,
+              },
+              {
+                "fontWeight": "bold",
+                "marginBottom": 16,
+                "textAlign": "center",
+              },
+            ],
+          ]
+        }
+      >
+        app.title
+      </Text>
       <View
         style={
           {
             "alignItems": "flex-end",
             "marginBottom": 0,
-            "marginRight": 8,
+            "marginRight": 16,
           }
         }
       >
@@ -3715,12 +3831,41 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
     }
   >
     <View>
+      <Text
+        style={
+          [
+            {
+              "textAlign": "left",
+            },
+            {
+              "color": "rgba(28, 27, 31, 1)",
+              "writingDirection": "ltr",
+            },
+            [
+              {
+                "fontFamily": "System",
+                "fontSize": 32,
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 40,
+              },
+              {
+                "fontWeight": "bold",
+                "marginBottom": 16,
+                "textAlign": "center",
+              },
+            ],
+          ]
+        }
+      >
+        app.title
+      </Text>
       <View
         style={
           {
             "alignItems": "flex-end",
             "marginBottom": 0,
-            "marginRight": 8,
+            "marginRight": 16,
           }
         }
       >
@@ -4319,7 +4464,7 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
                   "color": "#b00020",
                   "fontSize": 12,
                   "marginBottom": 8,
-                  "marginLeft": 12,
+                  "marginLeft": 16,
                 },
               ]
             }
@@ -4573,7 +4718,7 @@ exports[`SignInScreen shows validation errors if input is empty and Sign In is p
                   "color": "#b00020",
                   "fontSize": 12,
                   "marginBottom": 8,
-                  "marginLeft": 12,
+                  "marginLeft": 16,
                 },
               ]
             }
